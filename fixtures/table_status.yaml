@@ -1,0 +1,26 @@
+- model: TableStatus
+  pk: 1
+  fields:
+    name: ready
+    display_name: Listo
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: TableStatus
+  pk: 2
+  fields:
+    name: occupied
+    display_name: Ocupado
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: TableStatus
+  pk: 3
+  fields:
+    name: deleted
+    display_name: Borrado
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
