@@ -19,15 +19,15 @@ docker-compose
 
 ### Installing
 
-```
-Just run the commands explained in getting started.
-```
+For docker use: [Docker Install Script](https://github.com/docker/docker-install)
+
+For docker-compose use: [Docker Compose Install](https://docs.docker.com/compose/install/)
 
 
 ## Running the tests
 
 ```
-docker-compose exec web python manage.py test
+docker-compose exec web python manage.py test api.tests
 ```
 
 ## Built With
