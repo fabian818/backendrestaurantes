@@ -1,0 +1,26 @@
+- model: SaleStatus
+  pk: 1
+  fields:
+    name: paid
+    display_name: Pagado
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: SaleStatus
+  pk: 2
+  fields:
+    name: deleted
+    display_name: Borrado
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: SaleStatus
+  pk: 3
+  fields:
+    name: canceled
+    display_name: Cancelado
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01

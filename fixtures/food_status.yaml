@@ -1,0 +1,35 @@
+- model: api.FoodStatus
+  pk: 1
+  fields:
+    name: active
+    display_name: Activo
+    description: Comida disponible
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: api.FoodStatus
+  pk: 2
+  fields:
+    name: inactive
+    display_name: Inactivo
+    description: Comida no disponible temporalmente
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: api.FoodStatus
+  pk: 3
+  fields:
+    name: incoming
+    display_name: Muy pronto
+    description: Comida disponible muy pronto
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: api.FoodStatus
+  pk: 4
+  fields:
+    name: deleted
+    display_name: Borrado
+    description: Comida borrada
+    created_at: 2020-01-01
+    updated_at: 2020-01-01

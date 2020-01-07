@@ -1,0 +1,52 @@
+- model: api.FoodCategory
+  pk: 1
+  fields:
+    name: breakfast
+    display_name: Desayuno
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: api.FoodCategory
+  pk: 2
+  fields:
+    name: lunch
+    display_name: Almuerzo
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: api.FoodCategory
+  pk: 3
+  fields:
+    name: dinner
+    display_name: Cena
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: api.FoodCategory
+  pk: 4
+  fields:
+    name: drink
+    display_name: Bebida
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: api.FoodCategory
+  pk: 5
+  fields:
+    name: fastfood
+    display_name: Comida Rápida
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+# - model: api.FoodCategory
+#   pk: 1
+#   fields:
+#     name: deleted
+#     display_name: Borrado
+#     description: ""
+#     created_at: 2020-01-01
+#     updated_at: 2020-01-01

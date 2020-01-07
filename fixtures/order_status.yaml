@@ -1,0 +1,44 @@
+- model: OrderStatus
+  pk: 1
+  fields:
+    name: created
+    display_name: Creado
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: OrderStatus
+  pk: 2
+  fields:
+    name: related
+    display_name: Relacionado
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: OrderStatus
+  pk: 3
+  fields:
+    name: paid
+    display_name: Pagado
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: OrderStatus
+  pk: 4
+  fields:
+    name: canceled
+    display_name: Cancelado
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: OrderStatus
+  pk: 5
+  fields:
+    name: deleted
+    display_name: Borrado
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
