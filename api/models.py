@@ -43,7 +43,7 @@ class Food(DateTable):
     food_category = models.ForeignKey(FoodCategory, on_delete=models.DO_NOTHING, null=False)
     name = models.CharField(max_length=100, null=False)
     price = models.DecimalField(max_digits=5, decimal_places=2, null=False)
-    image_pic = models.ImageField(default="backendrestaurantes/static/img/ajidegallina.jpg")
+    image_pic = models.ImageField(default="/static/img/ajidegallina.jpg")
 
 
 class HistoricalPrice(DateTable):
@@ -76,8 +76,8 @@ class Sale(DateTable):
 class FoodOrder(DateTable):
     order_status = models.ForeignKey(OrderStatus, on_delete=models.DO_NOTHING, null=False)
     food = models.ForeignKey(Food, on_delete=models.DO_NOTHING, null=False)
-    food_table = models.ForeignKey(FoodTable, on_delete=models.DO_NOTHING, null=False)
-    sale = models.ForeignKey(Sale, on_delete=models.DO_NOTHING, null=False)
+    food_table = models.ForeignKey(FoodTable, on_delete=models.DO_NOTHING, null=False, related_name='food_orders')
+    sale = models.ForeignKey(Sale, on_delete=models.DO_NOTHING, null=True)
     price = models.DecimalField(max_digits=8, decimal_places=2, null=False, default=0)
     total = models.DecimalField(max_digits=8, decimal_places=2, null=False, default=0)
     quantity = models.IntegerField(null=False, default=1)
