@@ -1,4 +1,4 @@
-- model: OrderStatus
+- model: api.OrderStatus
   pk: 1
   fields:
     name: created
@@ -7,7 +7,7 @@
     created_at: 2020-01-01
     updated_at: 2020-01-01
 
-- model: OrderStatus
+- model: api.OrderStatus
   pk: 2
   fields:
     name: related
@@ -16,7 +16,7 @@
     created_at: 2020-01-01
     updated_at: 2020-01-01
 
-- model: OrderStatus
+- model: api.OrderStatus
   pk: 3
   fields:
     name: paid
@@ -25,7 +25,7 @@
     created_at: 2020-01-01
     updated_at: 2020-01-01
 
-- model: OrderStatus
+- model: api.OrderStatus
   pk: 4
   fields:
     name: canceled
@@ -34,7 +34,7 @@
     created_at: 2020-01-01
     updated_at: 2020-01-01
 
-- model: OrderStatus
+- model: api.OrderStatus
   pk: 5
   fields:
     name: deleted

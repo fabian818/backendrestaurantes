@@ -1,4 +1,4 @@
-- model: SaleStatus
+- model: api.SaleStatus
   pk: 1
   fields:
     name: paid
@@ -7,7 +7,7 @@
     created_at: 2020-01-01
     updated_at: 2020-01-01
 
-- model: SaleStatus
+- model: api.SaleStatus
   pk: 2
   fields:
     name: deleted
@@ -16,7 +16,7 @@
     created_at: 2020-01-01
     updated_at: 2020-01-01
 
-- model: SaleStatus
+- model: api.SaleStatus
   pk: 3
   fields:
     name: canceled
