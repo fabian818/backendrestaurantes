@@ -9,7 +9,7 @@ client = Client()
 base_list_path = '/api/food_tables/'
 
 
-class GetListOfAccountsTest(TestCase):
+class GetListOfFoodTablesTest(TestCase):
     """ Test module for GET list of food_tables API """
 
     def setUp(self):
@@ -24,7 +24,7 @@ class GetListOfAccountsTest(TestCase):
         for _ in range(self.total_created_paid):
             FoodOrderFactory(food_table=self.food_table, food=self.food, order_status_id=OrderStatusID.PAID, sale_id=None)
 
-    def test_list_of_account(self):
+    def test_list_of_food_tables(self):
         response = client.get(base_list_path)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
