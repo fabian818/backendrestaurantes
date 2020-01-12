@@ -11,7 +11,7 @@ base_list_path = '/api/food_tables/1'
 class GetDetailFoodTableTest(TestCase):
     """ Test module for GET a single food_table API """
     def setUp(self):
-        meta_data_specific(['food_category', 'table_status', 'order_status'])
+        meta_data_specific(['food_category', 'food_status', 'order_status', 'table_status'])
         self.total_created_canceled = 10
         self.food_table = FoodTableFactory()
         self.food = FoodFactory()
@@ -32,6 +32,11 @@ class GetDetailFoodTableTest(TestCase):
 
     def test_food_table(self):
         response = client.get(base_list_path)
+        data = response.data
+        self.assertEqual(data['table_status'], 1)
+        self.assertNotEqual(data['identifier'], None)
+        self.assertNotEqual(data['display_name'], None)
+        self.assertNotEqual(data['description'], None)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(len(response.data[0]['food_orders']), 11)
+        self.assertEqual(len(data), 8)
+        self.assertEqual(len(data['food_orders']), 1)
