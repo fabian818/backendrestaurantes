@@ -1,0 +1,69 @@
+- model: api.FoodOrder
+  pk: 1
+  fields:
+    order_status_id: 1
+    food_id: 1
+    food_table_id: 4
+    price: 15.99
+    total: 15.99
+    quantity: 1
+
+- model: api.FoodOrder
+  pk: 2
+  fields:
+    order_status_id: 1
+    food_id: 2
+    food_table_id: 4
+    price: 14.99
+    total: 14.99
+    quantity: 1
+
+- model: api.FoodOrder
+  pk: 3
+  fields:
+    order_status_id: 1
+    food_id: 3
+    food_table_id: 4
+    price: 12.99
+    total: 12.99
+    quantity: 1
+
+- model: api.FoodOrder
+  pk: 4
+  fields:
+    order_status_id: 1
+    food_id: 4
+    food_table_id: 4
+    price: 13.99
+    total: 13.99
+    quantity: 1
+
+- model: api.FoodOrder
+  pk: 5
+  fields:
+    order_status_id: 1
+    food_id: 4
+    food_table_id: 6
+    price: 13.99
+    total: 13.99
+    quantity: 1
+
+- model: api.FoodOrder
+  pk: 6
+  fields:
+    order_status_id: 1
+    food_id: 4
+    food_table_id: 6
+    price: 13.99
+    total: 13.99
+    quantity: 1
+
+- model: api.FoodOrder
+  pk: 7
+  fields:
+    order_status_id: 3
+    food_id: 4
+    food_table_id: 6
+    price: 13.99
+    total: 13.99
+    quantity: 1

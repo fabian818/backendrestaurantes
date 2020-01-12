@@ -8,6 +8,7 @@ Backend part of the restaurant system project.
 docker-compose up -d
 docker-compose exec web python manage.py migrate
 docker-compose exec web sh fixtures/create_metadata.sh
+docker-compose exec web sh fixtures/create_fake_data.sh
 ```
 
 ### Prerequisites

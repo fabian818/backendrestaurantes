@@ -1,0 +1,63 @@
+- model: api.Food
+  pk: 1
+  fields:
+    food_status_id: 1
+    food_category_id: 2
+    name: Ají de gallina
+    price: 15.99
+
+- model: api.Food
+  pk: 2
+  fields:
+    food_status_id: 1
+    food_category_id: 2
+    name: Arroz con pollo
+    price: 14.99
+
+- model: api.Food
+  pk: 3
+  fields:
+    food_status_id: 1
+    food_category_id: 2
+    name: Carapulcra con Sopa Seca
+    price: 12.99
+
+- model: api.Food
+  pk: 4
+  fields:
+    food_status_id: 1
+    food_category_id: 2
+    name: Frejoles con Seco
+    price: 13.99
+
+- model: api.Food
+  pk: 5
+  fields:
+    food_status_id: 1
+    food_category_id: 5
+    name: Causa Rellena
+    price: 8.99
+
+- model: api.Food
+  pk: 6
+  fields:
+    food_status_id: 1
+    food_category_id: 5
+    name: Ensalada de Palta
+    price: 8.99
+
+- model: api.Food
+  pk: 7
+  fields:
+    food_status_id: 1
+    food_category_id: 4
+    name: Chicha morada
+    price: 5.99
+
+- model: api.Food
+  pk: 8
+  fields:
+    food_status_id: 1
+    food_category_id: 4
+    name: Maracuyá
+    price: 6.99
