@@ -1,0 +1,63 @@
+- model: api.FoodTable
+  pk: 1
+  fields:
+    table_status_id: 1
+    identifier: Mesa 1
+    display_name: Mesa 1
+    description: Descripción Mesa 1
+
+- model: api.FoodTable
+  pk: 2
+  fields:
+    table_status_id: 1
+    identifier: Mesa 2
+    display_name: Mesa 2
+    description: Descripción Mesa 2
+
+- model: api.FoodTable
+  pk: 3
+  fields:
+    table_status_id: 1
+    identifier: Mesa 3
+    display_name: Mesa 3
+    description: Descripción Mesa 3
+
+- model: api.FoodTable
+  pk: 4
+  fields:
+    table_status_id: 2
+    identifier: Mesa 4
+    display_name: Mesa 4
+    description: Descripción Mesa 4
+
+- model: api.FoodTable
+  pk: 5
+  fields:
+    table_status_id: 1
+    identifier: Mesa 5
+    display_name: Mesa 5
+    description: Descripción Mesa 5
+
+- model: api.FoodTable
+  pk: 6
+  fields:
+    table_status_id: 2
+    identifier: Mesa 6
+    display_name: Mesa 6
+    description: Descripción Mesa 6
+
+- model: api.FoodTable
+  pk: 7
+  fields:
+    table_status_id: 1
+    identifier: Mesa 7
+    display_name: Mesa 7
+    description: Descripción Mesa 7
+
+- model: api.FoodTable
+  pk: 8
+  fields:
+    table_status_id: 3
+    identifier: Mesa 8
+    display_name: Mesa 8
+    description: Descripción Mesa 8
