@@ -15,7 +15,7 @@ class FoodTableList(generics.ListAPIView):
 class FoodTableDetail(generics.RetrieveAPIView):
     """
     get:
-    Get table with a ID
+    Get table by ID
     """
     queryset = FoodTable.objects.all()
     serializer_class = FoodTableSerializer
