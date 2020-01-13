@@ -10,3 +10,12 @@ class FoodTableList(generics.ListAPIView):
     """
     queryset = FoodTable.objects.all()
     serializer_class = FoodTableSerializer
+
+
+class FoodTableDetail(generics.RetrieveAPIView):
+    """
+    get:
+    Get table with a ID
+    """
+    queryset = FoodTable.objects.all()
+    serializer_class = FoodTableSerializer

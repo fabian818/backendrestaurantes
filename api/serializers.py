@@ -18,10 +18,12 @@ class FoodOrderSerializer(serializers.ModelSerializer):
 
 
 class FoodTableSerializer(serializers.ModelSerializer):
-    food_orders = serializers.SerializerMethodField(source='food_orders', read_only=True)
+    food_orders = serializers.SerializerMethodField(source='food_orders',
+                                                    read_only=True)
 
     class Meta:
         model = FoodTable
+        child = FoodOrder
         fields = '__all__'
 
     def get_food_orders(self, obj):
@@ -29,8 +31,3 @@ class FoodTableSerializer(serializers.ModelSerializer):
             obj.food_orders.filter(order_status_id=OrderStatusID.CREATED),
             many=True,
             read_only=True).data
-
-    class Meta:
-        model = FoodTable
-        child = FoodOrder
-        fields = '__all__'
