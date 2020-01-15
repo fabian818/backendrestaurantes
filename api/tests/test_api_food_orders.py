@@ -6,7 +6,7 @@ from api.tests.factories.builders import meta_data_specific
 from api.meta_data import OrderStatusID
 
 client = Client()
-base_list_path = '/api/food_orders/'
+base_list_path = '/api/food_orders/bulk_create/'
 food_order_valid_payload = {
     'food_table_id': None,
     'food_orders': [
@@ -19,7 +19,7 @@ food_order_valid_payload = {
 }
 
 
-class GetListOfFoodTablesTest(TestCase):
+class PostBulkCreateFoodOrdersTest(TestCase):
     """ Test module for GET list of food_tables API """
 
     def setUp(self):
@@ -35,7 +35,7 @@ class GetListOfFoodTablesTest(TestCase):
             base_list_path,
             dumps(self.food_order_valid_payload),
             content_type="application/json")
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['food_table_id'], self.table.id)
         self.assertEqual(
             response.data['food_orders'][0]['total'],
