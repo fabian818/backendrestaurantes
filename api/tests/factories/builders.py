@@ -7,4 +7,4 @@ def meta_data():
 
 def meta_data_specific(files):
     for file in files:
-        call_command("loaddata", f"fixtures/{file}.yaml", verbosity=0)
+        call_command("loaddata", f"fixtures/meta_data/{file}.yaml", verbosity=0)
