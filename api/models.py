@@ -1,4 +1,5 @@
 from django.db import models
+from api.meta_data import OrderStatusID
 
 
 class DateTable(models.Model):
@@ -74,7 +75,7 @@ class Sale(DateTable):
 
 
 class FoodOrder(DateTable):
-    order_status = models.ForeignKey(OrderStatus, on_delete=models.DO_NOTHING, null=False)
+    order_status = models.ForeignKey(OrderStatus, on_delete=models.DO_NOTHING, null=False, default=OrderStatusID.CREATED)
     food = models.ForeignKey(Food, on_delete=models.DO_NOTHING, null=False)
     food_table = models.ForeignKey(FoodTable, on_delete=models.DO_NOTHING, null=False, related_name='food_orders')
     sale = models.ForeignKey(Sale, on_delete=models.DO_NOTHING, null=True)
