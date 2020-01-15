@@ -29,3 +29,11 @@ class GetListOfFoodTablesTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(len(response.data[0]['food_orders']), 5)
+
+    def test_filter_of_food_tables(self):
+        filter_path = base_list_path + '?table_status_id=2'
+        response = client.get(filter_path)
+        data = response.data
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(data), 0)
+        self.assertNotEqual(data[0]['table_status_id'], 2)
