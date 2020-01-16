@@ -1,4 +1,5 @@
 from django.db import models
+from api.meta_data import OrderStatusID
 
 
 class DateTable(models.Model):
@@ -74,10 +75,17 @@ class Sale(DateTable):
 
 
 class FoodOrder(DateTable):
-    order_status = models.ForeignKey(OrderStatus, on_delete=models.DO_NOTHING, null=False)
+    order_status = models.ForeignKey(OrderStatus, on_delete=models.DO_NOTHING, null=False, default=OrderStatusID.CREATED)
     food = models.ForeignKey(Food, on_delete=models.DO_NOTHING, null=False)
     food_table = models.ForeignKey(FoodTable, on_delete=models.DO_NOTHING, null=False, related_name='food_orders')
     sale = models.ForeignKey(Sale, on_delete=models.DO_NOTHING, null=True)
     price = models.DecimalField(max_digits=8, decimal_places=2, null=False, default=0)
     total = models.DecimalField(max_digits=8, decimal_places=2, null=False, default=0)
     quantity = models.IntegerField(null=False, default=1)
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.total = self.quantity * self.price
+        return super(FoodOrder, self).save(force_insert=False, force_update=False, using=None,
+                                        update_fields=None)
+

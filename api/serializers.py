@@ -10,7 +10,9 @@ class FoodSerializer(serializers.ModelSerializer):
 
 
 class FoodOrderSerializer(serializers.ModelSerializer):
-    food = FoodSerializer()
+    food = FoodSerializer(required=False)
+    food_id = serializers.IntegerField(allow_null=False)
+    food_table_id = serializers.IntegerField(allow_null=False)
 
     class Meta:
         model = FoodOrder
@@ -31,3 +33,16 @@ class FoodTableSerializer(serializers.ModelSerializer):
             obj.food_orders.filter(order_status_id=OrderStatusID.CREATED),
             many=True,
             read_only=True).data
+
+
+class ResponseFoodOrderSerializer(serializers.ModelSerializer):
+    food = FoodSerializer(required=False)
+    food_id = serializers.IntegerField(allow_null=False)
+    food_table_id = serializers.IntegerField(allow_null=False)
+    food_table = FoodTableSerializer(required=False)
+    total = serializers.FloatField(required=False)
+    order_status_id = serializers.IntegerField(allow_null=False, required=False)
+
+    class Meta:
+        model = FoodOrder
+        fields = '__all__'
