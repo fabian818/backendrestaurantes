@@ -39,8 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_yasg',
+    'rest_framework_filters',
     'api'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework_filters.backends.RestFrameworkFilterBackend',
+    )
+}
 
 
 MIDDLEWARE = [
