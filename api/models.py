@@ -82,3 +82,10 @@ class FoodOrder(DateTable):
     price = models.DecimalField(max_digits=8, decimal_places=2, null=False, default=0)
     total = models.DecimalField(max_digits=8, decimal_places=2, null=False, default=0)
     quantity = models.IntegerField(null=False, default=1)
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.total = self.quantity * self.price
+        return super(FoodOrder, self).save(force_insert=False, force_update=False, using=None,
+                                        update_fields=None)
+

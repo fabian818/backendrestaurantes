@@ -36,7 +36,7 @@ class PostBulkCreateFoodOrdersTest(TestCase):
             dumps(self.food_order_valid_payload),
             content_type="application/json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data['food_table_id'], self.table.id)
+        self.assertEqual(response.data['food_table_id'], self.food_table.id)
         self.assertEqual(
             response.data['food_orders'][0]['total'],
             self.food_order_valid_payload['food_orders']
@@ -45,5 +45,5 @@ class PostBulkCreateFoodOrdersTest(TestCase):
         self.assertEqual(
             response.data['food_orders'][0]['order_status_id'], OrderStatusID.CREATED)
         self.assertEqual(
-            response.data['food_orders'][0]['food_table_id'], self.table.id)
-        self.assertEqual(len(response.data[0]['food_orders']), 5)
+            response.data['food_orders'][0]['food_table_id'], self.food_table.id)
+        self.assertEqual(len(response.data['food_orders']), 1)
