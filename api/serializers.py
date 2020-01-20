@@ -16,7 +16,7 @@ class FoodOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FoodOrder
-        fields = '__all__'
+        exclude = ('food_table',)
 
 
 class FoodTableSerializer(serializers.ModelSerializer):
