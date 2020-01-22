@@ -16,7 +16,7 @@ class FoodOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FoodOrder
-        fields = '__all__'
+        exclude = ('food_table',)
 
 
 class FoodTableSerializer(serializers.ModelSerializer):
@@ -28,7 +28,8 @@ class FoodTableSerializer(serializers.ModelSerializer):
         child = FoodOrder
         fields = '__all__'
 
-    def get_food_orders(self, obj):
+    @staticmethod
+    def get_food_orders(obj):
         return FoodOrderSerializer(
             obj.food_orders.filter(order_status_id=OrderStatusID.CREATED),
             many=True,

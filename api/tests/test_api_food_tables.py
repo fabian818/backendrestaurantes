@@ -22,13 +22,13 @@ class GetListOfFoodTablesTest(TestCase):
         for _ in range(self.total_created_active):
             FoodOrderFactory(food_table=self.food_table,
                              food=self.food,
-                             sale_id=None)
+                             sale=None)
 
         for _ in range(self.total_created_paid):
             FoodOrderFactory(food_table=self.food_table,
                              food=self.food,
                              order_status_id=OrderStatusID.PAID,
-                             sale_id=None)
+                             sale=None)
 
     def test_list_of_food_tables(self):
         response = client.get(base_list_path)

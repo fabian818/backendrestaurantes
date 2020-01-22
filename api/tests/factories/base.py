@@ -55,7 +55,7 @@ class FoodOrderFactory(factory.django.DjangoModelFactory):
     order_status_id = 1
     food = factory.SubFactory(FoodFactory)
     food_table = factory.SubFactory(FoodTableFactory)
-    sale_id = factory.SubFactory(SaleFactory)
+    sale = factory.SubFactory(SaleFactory)
     price = random.randint(100, 200)
     total = random.randint(100, 200)
     quantity = random.randint(100, 200)

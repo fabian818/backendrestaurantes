@@ -1,6 +1,21 @@
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, generics
 from rest_framework.response import Response
-from api.serializers import ResponseFoodOrderSerializer
+from api.serializers import ResponseFoodOrderSerializer, FoodOrderSerializer
+from api.models import FoodOrder
+from api.filters import FoodOrderFilter
+from api.paginators import FiftyResultsPaginator
+
+
+class FoodOrderList(generics.ListAPIView):
+    """
+    get:
+
+    Get paginated and filtered list of food_orders
+    """
+    queryset = FoodOrder.objects.all()
+    serializer_class = FoodOrderSerializer
+    filter_class = FoodOrderFilter
+    pagination_class = FiftyResultsPaginator
 
 
 class FoodOrdersViewSet(viewsets.ViewSet):
