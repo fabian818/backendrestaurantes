@@ -17,18 +17,18 @@ class GetDetailFoodTableTest(TestCase):
         self.food = FoodFactory()
         FoodOrderFactory(food_table=self.food_table,
                             food=self.food,
-                            sale_id=None)
+                            sale=None)
 
         FoodOrderFactory(food_table=self.food_table,
                             food=self.food,
                             order_status_id=OrderStatusID.PAID,
-                            sale_id=None)
+                            sale=None)
 
         for _ in range(self.total_created_canceled):
             FoodOrderFactory(food_table=self.food_table,
                              food=self.food,
                              order_status_id=OrderStatusID.CANCELED,
-                             sale_id=None)
+                             sale=None)
 
     def test_food_table(self):
         response = client.get(base_list_path)

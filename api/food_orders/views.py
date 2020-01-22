@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from api.serializers import ResponseFoodOrderSerializer, FoodOrderSerializer
 from api.models import FoodOrder
 from api.filters import FoodOrderFilter
+from api.paginators import FiftyResultsPaginator
 
 
 class FoodOrderList(generics.ListAPIView):
@@ -14,6 +15,7 @@ class FoodOrderList(generics.ListAPIView):
     queryset = FoodOrder.objects.all()
     serializer_class = FoodOrderSerializer
     filter_class = FoodOrderFilter
+    pagination_class = FiftyResultsPaginator
 
 
 class FoodOrdersViewSet(viewsets.ViewSet):
