@@ -56,7 +56,7 @@ class ClientSerializer(serializers.ModelSerializer):
 
 
 class SaleSerializer(serializers.ModelSerializer):
-    client = ClientSerializer
+    client = ClientSerializer()
     class Meta:
         model = Sale
         fields = '__all__'
