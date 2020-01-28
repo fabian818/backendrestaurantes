@@ -1,6 +1,5 @@
-from rest_framework import viewsets
 import rest_framework_filters as filters
-from api.models import FoodTable, FoodOrder, Food
+from api.models import FoodTable, FoodOrder, Food, Client, Sale
 
 
 class FoodTableFilter(filters.FilterSet):
@@ -25,4 +24,24 @@ class FoodOrderFilter(filters.FilterSet):
         fields = {
             'order_status_id': ['in', 'exact'],
             'food_table_id': ['in', 'exact']
+        }
+
+
+class ClientFilter(filters.FilterSet):
+    class Meta:
+        model = Client
+        fields = {
+            'identifier': ['exact', 'in']
+        }
+
+
+class SaleFilter(filters.FilterSet):
+    client = filters.RelatedFilter(ClientFilter, field_name='client', queryset=Client.objects.all())
+
+    class Meta:
+        model = Sale
+        fields = {
+            'sale_status_id': ['exact', 'in'],
+            'sale_type_id': ['exact', 'in'],
+            'code': ['exact', 'in'],
         }

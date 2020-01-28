@@ -42,6 +42,7 @@ class SaleFactory(factory.django.DjangoModelFactory):
 
     client = factory.SubFactory(ClientFactory)
     sale_status_id = 1
+    sale_type_id = 1
     code = str(random.randint(100, 200))
     total = random.randint(100, 200)
     payment = random.randint(100, 200)
