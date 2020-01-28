@@ -9,6 +9,12 @@ class FoodSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = '__all__'
+
+
 class FoodOrderSerializer(serializers.ModelSerializer):
     food = FoodSerializer(required=False)
     food_id = serializers.IntegerField(allow_null=False)
@@ -16,7 +22,7 @@ class FoodOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FoodOrder
-        exclude = ('food_table',)
+        exclude = ('food_table', )
 
 
 class FoodTableSerializer(serializers.ModelSerializer):
@@ -42,7 +48,8 @@ class ResponseFoodOrderSerializer(serializers.ModelSerializer):
     food_table_id = serializers.IntegerField(allow_null=False)
     food_table = FoodTableSerializer(required=False)
     total = serializers.FloatField(required=False)
-    order_status_id = serializers.IntegerField(allow_null=False, required=False)
+    order_status_id = serializers.IntegerField(allow_null=False,
+                                               required=False)
 
     class Meta:
         model = FoodOrder
@@ -57,6 +64,7 @@ class ClientSerializer(serializers.ModelSerializer):
 
 class SaleSerializer(serializers.ModelSerializer):
     client = ClientSerializer()
+
     class Meta:
         model = Sale
         fields = '__all__'
