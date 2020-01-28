@@ -1,9 +1,8 @@
 import json
 from rest_framework import status
 from django.test import TestCase, Client
-from api.tests.factories.base import FoodTableFactory, FoodFactory, FoodOrderFactory
+from api.tests.factories.base import FoodFactory, FoodOrderFactory
 from api.tests.factories.builders import meta_data_specific
-from api.meta_data import OrderStatusID
 
 client = Client()
 base_list_path = '/api/food_orders/'
