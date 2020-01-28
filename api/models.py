@@ -39,6 +39,10 @@ class SaleStatus(MetaDataTable):
     pass
 
 
+class SaleType(MetaDataTable):
+    pass
+
+
 class Food(DateTable):
     food_status = models.ForeignKey(FoodStatus, on_delete=models.DO_NOTHING, null=False)
     food_category = models.ForeignKey(FoodCategory, on_delete=models.DO_NOTHING, null=False)
@@ -68,10 +72,12 @@ class Client(DateTable):
 class Sale(DateTable):
     client = models.ForeignKey(Client, on_delete=models.DO_NOTHING, null=False)
     sale_status = models.ForeignKey(SaleStatus, on_delete=models.DO_NOTHING, null=False)
+    sale_type = models.ForeignKey(SaleType, on_delete=models.DO_NOTHING, null=False, default=1)
     code = models.CharField(max_length=20, null=False)
     total = models.DecimalField(max_digits=8, decimal_places=2, null=False)
     payment = models.DecimalField(max_digits=8, decimal_places=2, null=False)
     change = models.DecimalField(max_digits=8, decimal_places=2, null=False)
+
 
 
 class FoodOrder(DateTable):
