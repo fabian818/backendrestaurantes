@@ -1,21 +1,13 @@
 from json import dumps
 from rest_framework import status
 from django.test import TestCase, Client
-from api.tests.factories.base import FoodTableFactory, FoodFactory, FoodOrderFactory
+from api.tests.factories.base import FoodTableFactory, FoodFactory, FoodOrderFactory, ClientFactory
 from api.tests.factories.builders import meta_data_specific
 from api.meta_data import OrderStatusID
 
 client = Client()
-base_list_path = '/api/food_orders/bulk_create/'
-sale_valid_payload = {
-    'food_orders': None,
-    'client': {
-        'identifier': '72446953',
-        'name': 'Alvaro',
-        'last_name': 'Palacios'
-    },
-    'payment': 50.00
-}
+base_list_path = '/api/sales/create/'
+sale_valid_payload = {'food_orders': None, 'client_id': None, 'payment': 50.00}
 
 
 class PostBulkCreateSalesTest(TestCase):
@@ -36,6 +28,8 @@ class PostBulkCreateSalesTest(TestCase):
 
         self.sale_valid_payload = sale_valid_payload
         self.sale_valid_payload['food_orders'] = self.food_orders
+        self.client = ClientFactory()
+        self.sale_valid_payload['client_id'] = self.client.id
 
     def test_create_sales(self):
         response = client.post(base_list_path,
@@ -47,4 +41,3 @@ class PostBulkCreateSalesTest(TestCase):
         self.assertNotEqual(response.data['payment'], None)
         self.assertEqual(response.data['change'],
                          response.data['payment'] - response.data['total'])
-        # Acá deben ir los tests de client
