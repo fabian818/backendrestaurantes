@@ -19,9 +19,8 @@ class GetListOfSalesTest(TestCase):
         for _ in range(self.total_created_active):
             SaleFactory()
 
-    def test_list_of_fo(self):
+    def test_list_of_sales(self):
         response = client.get(base_list_path + '?page=1')
-        print(response.content)
         json_content = json.loads(response.content)
         sales = Sale.objects.all()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
