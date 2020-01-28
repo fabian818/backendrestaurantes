@@ -1,0 +1,17 @@
+- model: api.SaleType
+  pk: 1
+  fields:
+    name: boleta
+    display_name: Boleta
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
+
+- model: api.SaleType
+  pk: 2
+  fields:
+    name: factura
+    display_name: Factura
+    description: ""
+    created_at: 2020-01-01
+    updated_at: 2020-01-01
