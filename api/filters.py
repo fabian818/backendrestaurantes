@@ -1,9 +1,5 @@
 import rest_framework_filters as filters
-<<<<<<< HEAD
 from api.models import FoodTable, FoodOrder, Food, Client, Sale
-=======
-from api.models import FoodTable, FoodOrder, Food, Client
->>>>>>> ADD: List all clients, filter by identifier and tests
 
 
 class FoodTableFilter(filters.FilterSet):
@@ -34,13 +30,13 @@ class FoodOrderFilter(filters.FilterSet):
 class ClientFilter(filters.FilterSet):
     class Meta:
         model = Client
-        fields = {
-            'identifier': ['exact', 'in']
-        }
+        fields = {'identifier': ['exact', 'in']}
 
 
 class SaleFilter(filters.FilterSet):
-    client = filters.RelatedFilter(ClientFilter, field_name='client', queryset=Client.objects.all())
+    client = filters.RelatedFilter(ClientFilter,
+                                   field_name='client',
+                                   queryset=Client.objects.all())
 
     class Meta:
         model = Sale
