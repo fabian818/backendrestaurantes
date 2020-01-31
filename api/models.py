@@ -73,11 +73,34 @@ class Sale(DateTable):
     client = models.ForeignKey(Client, on_delete=models.DO_NOTHING, null=False)
     sale_status = models.ForeignKey(SaleStatus, on_delete=models.DO_NOTHING, null=False)
     sale_type = models.ForeignKey(SaleType, on_delete=models.DO_NOTHING, null=False, default=1)
+    number = models.IntegerField(null=False, default=1)
     code = models.CharField(max_length=20, null=False)
     total = models.DecimalField(max_digits=8, decimal_places=2, null=False)
     payment = models.DecimalField(max_digits=8, decimal_places=2, null=False)
     change = models.DecimalField(max_digits=8, decimal_places=2, null=False)
 
+    def save(self,
+             force_insert=False,
+             force_update=False,
+             using=None,
+             update_fields=None):
+        if self.sale_type_id == 1:
+            letter = 'B'
+        elif self.sale_type_id == 2:
+            letter = 'F'
+        sales = Sale.objects.all().order_by('-number')
+        if sales.exists():
+            last_number = sales.latest('number').number
+        else:
+            last_number = 0
+        self.sale_status_id = 1
+        self.number = last_number + 1
+        self.code = letter + '001-' + str(self.number).rjust(8, '0')
+        self.change = self.payment - self.total
+        return super(Sale, self).save(force_insert=False,
+                                      force_update=False,
+                                      using=None,
+                                      update_fields=None)
 
 
 class FoodOrder(DateTable):
@@ -94,4 +117,3 @@ class FoodOrder(DateTable):
         self.total = self.quantity * self.price
         return super(FoodOrder, self).save(force_insert=False, force_update=False, using=None,
                                         update_fields=None)
-
