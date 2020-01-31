@@ -16,7 +16,7 @@ sale_valid_payload = {
 
 
 class PostCreateSaleTest(TestCase):
-    """ Test module for GET list of food_tables API """
+    """ Test module for POST create sale API """
     def setUp(self):
         meta_data_specific([
             'food_category', 'food_status', 'order_status', 'table_status',
