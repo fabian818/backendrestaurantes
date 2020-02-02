@@ -1,5 +1,5 @@
 from django.db import models
-from api.meta_data import OrderStatusID
+from api.meta_data import OrderStatusID, SaleTypeID
 
 
 class DateTable(models.Model):
@@ -84,9 +84,9 @@ class Sale(DateTable):
              force_update=False,
              using=None,
              update_fields=None):
-        if self.sale_type_id == 1:
+        if self.sale_type_id == SaleTypeID.BILL:
             letter = 'B'
-        elif self.sale_type_id == 2:
+        elif self.sale_type_id == SaleTypeID.INVOICE:
             letter = 'F'
         sales = Sale.objects.all().order_by('-number')
         if sales.exists():
