@@ -71,7 +71,7 @@ class Client(DateTable):
 
 class Sale(DateTable):
     client = models.ForeignKey(Client, on_delete=models.DO_NOTHING, null=False)
-    sale_status = models.ForeignKey(SaleStatus, on_delete=models.DO_NOTHING, null=False)
+    sale_status = models.ForeignKey(SaleStatus, on_delete=models.DO_NOTHING, null=False, default=1)
     sale_type = models.ForeignKey(SaleType, on_delete=models.DO_NOTHING, null=False, default=1)
     number = models.IntegerField(null=False, default=1)
     code = models.CharField(max_length=20, null=False)
@@ -91,7 +91,6 @@ class Sale(DateTable):
             last_number = sales.latest('number').number
         else:
             last_number = 0
-        self.sale_status_id = 1
         self.number = last_number + 1
         self.code = letter + '001-' + str(self.number).rjust(8, '0')
         self.change = self.payment - self.total
