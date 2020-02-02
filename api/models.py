@@ -84,10 +84,8 @@ class Sale(DateTable):
              force_update=False,
              using=None,
              update_fields=None):
-        if self.sale_type_id == SaleTypeID.BILL:
-            letter = 'B'
-        elif self.sale_type_id == SaleTypeID.INVOICE:
-            letter = 'F'
+        sale_types_values = {SaleTypeID.BOLETA: 'B', SaleTypeID.FACTURA: 'F'}
+        letter = sale_types_values.get(self.sale_type_id)
         sales = Sale.objects.all().order_by('-number')
         if sales.exists():
             last_number = sales.latest('number').number

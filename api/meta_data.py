@@ -6,5 +6,5 @@ class OrderStatusID:
     DELETED = 5
 
 class SaleTypeID:
-    BILL = 1
-    INVOICE = 2
+    BOLETA = 1
+    FACTURA = 2
