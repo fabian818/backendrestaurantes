@@ -53,4 +53,4 @@ class PostCreateSaleTest(TestCase):
         self.assertNotEqual(response.data['payment'], None)
         self.assertEqual(response.data['change'],
                          response.data['payment'] - response.data['total'])
-        self.assertEqual(response.data['sale_type']['name'], 'boleta')
+        self.assertEqual(response.data['sale_type_id'], 1)
