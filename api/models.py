@@ -86,12 +86,14 @@ class Sale(DateTable):
              force_update=False,
              using=None,
              update_fields=None):
-        sale_types_values = {SaleTypeID.BOLETA: 'B', SaleTypeID.FACTURA: 'F'}
-        letter = sale_types_values.get(self.sale_type_id)
-        last_number = Sale.objects.all().aggregate(s = Coalesce(Max('number'), 0))['s']
-        self.number = last_number + 1
-        self.code = letter + '001-' + str(self.number).rjust(8, '0')
-        self.change = self.payment - self.total
+        if self.pk is None:
+            sale_types_values = {SaleTypeID.BOLETA: 'B', SaleTypeID.FACTURA: 'F'}
+            letter = sale_types_values.get(self.sale_type_id)
+            last_number = Sale.objects.all().aggregate(max_number=Coalesce(Max('number'), 0))['max_number']
+            self.number = int(last_number) + 1
+            number_str = str(self.number).rjust(8, '0')
+            self.code = "{}001-{}".format(letter, number_str)
+            self.change = self.payment - self.total
         return super(Sale, self).save(force_insert=False,
                                       force_update=False,
                                       using=None,

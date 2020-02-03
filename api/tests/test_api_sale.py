@@ -49,6 +49,7 @@ class PostCreateSaleTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['total'], 30.0)
         self.assertNotEqual(response.data['code'], None)
+        self.assertNotEqual(response.data['code'], 'B001-00000001')
         self.assertNotEqual(response.data['payment'], None)
         self.assertEqual(response.data['change'],
                          response.data['payment'] - response.data['total'])
