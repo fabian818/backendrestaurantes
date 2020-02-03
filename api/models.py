@@ -1,5 +1,7 @@
 from django.db import models
 from api.meta_data import OrderStatusID, SaleTypeID
+from django.db.models import Max
+from django.db.models.functions import Coalesce
 
 
 class DateTable(models.Model):
@@ -86,11 +88,7 @@ class Sale(DateTable):
              update_fields=None):
         sale_types_values = {SaleTypeID.BOLETA: 'B', SaleTypeID.FACTURA: 'F'}
         letter = sale_types_values.get(self.sale_type_id)
-        sales = Sale.objects.all().order_by('-number')
-        if sales.exists():
-            last_number = sales.latest('number').number
-        else:
-            last_number = 0
+        last_number = Sale.objects.all().aggregate(s = Coalesce(Max('number'), 0))['s']
         self.number = last_number + 1
         self.code = letter + '001-' + str(self.number).rjust(8, '0')
         self.change = self.payment - self.total
