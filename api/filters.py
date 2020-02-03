@@ -11,13 +11,13 @@ class FoodTableFilter(filters.FilterSet):
 class FoodFilter(filters.FilterSet):
     class Meta:
         model = Food
-        fields = {
-            'name': ['icontains']
-        }
+        fields = {'name': ['icontains']}
 
 
 class FoodOrderFilter(filters.FilterSet):
-    food = filters.RelatedFilter(FoodFilter, field_name='food', queryset=Food.objects.all())
+    food = filters.RelatedFilter(FoodFilter,
+                                 field_name='food',
+                                 queryset=Food.objects.all())
 
     class Meta:
         model = FoodOrder
@@ -30,13 +30,13 @@ class FoodOrderFilter(filters.FilterSet):
 class ClientFilter(filters.FilterSet):
     class Meta:
         model = Client
-        fields = {
-            'identifier': ['exact', 'in']
-        }
+        fields = {'identifier': ['exact', 'in']}
 
 
 class SaleFilter(filters.FilterSet):
-    client = filters.RelatedFilter(ClientFilter, field_name='client', queryset=Client.objects.all())
+    client = filters.RelatedFilter(ClientFilter,
+                                   field_name='client',
+                                   queryset=Client.objects.all())
 
     class Meta:
         model = Sale

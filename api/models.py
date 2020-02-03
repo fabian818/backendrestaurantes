@@ -1,5 +1,7 @@
 from django.db import models
-from api.meta_data import OrderStatusID
+from api.meta_data import OrderStatusID, SaleTypeID
+from django.db.models import Max
+from django.db.models.functions import Coalesce
 
 
 class DateTable(models.Model):
@@ -71,13 +73,31 @@ class Client(DateTable):
 
 class Sale(DateTable):
     client = models.ForeignKey(Client, on_delete=models.DO_NOTHING, null=False)
-    sale_status = models.ForeignKey(SaleStatus, on_delete=models.DO_NOTHING, null=False)
+    sale_status = models.ForeignKey(SaleStatus, on_delete=models.DO_NOTHING, null=False, default=1)
     sale_type = models.ForeignKey(SaleType, on_delete=models.DO_NOTHING, null=False, default=1)
+    number = models.IntegerField(null=False, default=1)
     code = models.CharField(max_length=20, null=False)
     total = models.DecimalField(max_digits=8, decimal_places=2, null=False)
     payment = models.DecimalField(max_digits=8, decimal_places=2, null=False)
     change = models.DecimalField(max_digits=8, decimal_places=2, null=False)
 
+    def save(self,
+             force_insert=False,
+             force_update=False,
+             using=None,
+             update_fields=None):
+        if self.pk is None:
+            sale_types_values = {SaleTypeID.BOLETA: 'B', SaleTypeID.FACTURA: 'F'}
+            letter = sale_types_values.get(self.sale_type_id)
+            last_number = Sale.objects.all().aggregate(max_number=Coalesce(Max('number'), 0))['max_number']
+            self.number = int(last_number) + 1
+            number_str = str(self.number).rjust(8, '0')
+            self.code = "{}001-{}".format(letter, number_str)
+            self.change = self.payment - self.total
+        return super(Sale, self).save(force_insert=False,
+                                      force_update=False,
+                                      using=None,
+                                      update_fields=None)
 
 
 class FoodOrder(DateTable):
@@ -94,4 +114,3 @@ class FoodOrder(DateTable):
         self.total = self.quantity * self.price
         return super(FoodOrder, self).save(force_insert=False, force_update=False, using=None,
                                         update_fields=None)
-

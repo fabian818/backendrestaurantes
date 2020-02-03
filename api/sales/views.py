@@ -1,11 +1,14 @@
-from rest_framework import generics
-from api.models import Sale
-from api.serializers import SaleSerializer
+from rest_framework import status, generics
+from rest_framework.response import Response
+from api.models import Sale, FoodOrder, SaleType
+from api.serializers import SaleSerializer, CreateSaleSerializer
 from api.paginators import FiftyResultsPaginator
 from api.filters import SaleFilter
+from django.forms.models import model_to_dict
+from django.db.models import Sum
 
 
-class SaleList(generics.ListAPIView):
+class SaleList(generics.ListCreateAPIView):
     """
     get:
     Get tables with sales,
@@ -21,3 +24,17 @@ class SaleList(generics.ListAPIView):
     serializer_class = SaleSerializer
     pagination_class = FiftyResultsPaginator
     filter_class = SaleFilter
+
+    def create(self, request):
+        """
+        Method for create a Sale
+        """
+        data = request.data
+        food_orders = FoodOrder.objects.filter(id__in=data['food_orders'])
+        data['total'] = food_orders.aggregate(sum_total=Sum('total'))['sum_total']
+        serializer = CreateSaleSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        food_orders.update(sale_id=serializer.data['id'])
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import FoodTable, FoodOrder, Food, Sale, Client
+from api.models import FoodTable, FoodOrder, Food, Sale, Client, SaleStatus
 from api.meta_data import OrderStatusID
 
 
@@ -16,7 +16,7 @@ class FoodOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FoodOrder
-        exclude = ('food_table',)
+        exclude = ('food_table', )
 
 
 class FoodTableSerializer(serializers.ModelSerializer):
@@ -42,7 +42,8 @@ class ResponseFoodOrderSerializer(serializers.ModelSerializer):
     food_table_id = serializers.IntegerField(allow_null=False)
     food_table = FoodTableSerializer(required=False)
     total = serializers.FloatField(required=False)
-    order_status_id = serializers.IntegerField(allow_null=False, required=False)
+    order_status_id = serializers.IntegerField(allow_null=False,
+                                               required=False)
 
     class Meta:
         model = FoodOrder
@@ -55,8 +56,29 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class SaleStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SaleStatus
+        fields = '__all__'
+
 class SaleSerializer(serializers.ModelSerializer):
     client = ClientSerializer()
+
+    class Meta:
+        model = Sale
+        fields = '__all__'
+
+
+class CreateSaleSerializer(serializers.ModelSerializer):
+    client = ClientSerializer(required=False)
+    client_id = serializers.IntegerField(allow_null=False)
+    code = serializers.CharField(required=False)
+    change = serializers.FloatField(required=False)
+    payment = serializers.FloatField(required=False)
+    sale_type_id = serializers.IntegerField(allow_null=False, required=False)
+    total = serializers.FloatField(required=False)
+    sale_status = SaleStatusSerializer(required=False)
+
     class Meta:
         model = Sale
         fields = '__all__'
