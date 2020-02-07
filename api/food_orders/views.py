@@ -36,10 +36,7 @@ class FoodDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ResponseFoodOrderSerializer
 
     def update(self, request, *args, **kwargs):
-        if self.get_object().sale_id is not None:
-            raise serializers.ValidationError('Billed order.')
-        elif not self.get_object().order_status_id == OrderStatusID.CREATED:
-            raise serializers.ValidationError('Order must be in CREATED state')
+        self.validate_food_order()
         return super(FoodDetail, self).update(request, *args, **kwargs)
 
     def delete(self, request, pk):
@@ -48,17 +45,17 @@ class FoodDetail(generics.RetrieveUpdateDestroyAPIView):
         Logic Delete Food Order by ID
         """
         food_order = self.get_object()
-
-        if food_order.sale_id is not None:
-            raise serializers.ValidationError('Billed order.')
-        elif not food_order.order_status_id == OrderStatusID.CREATED:
-            raise serializers.ValidationError('Order must be in CREATED state')
-
+        self.validate_food_order()
         food_order.order_status_id = OrderStatusID.DELETED
         food_order.save()
-
         food_order = model_to_dict(food_order)
         return Response(food_order, status=status.HTTP_200_OK)
+
+    def validate_food_order(self):
+        if self.get_object().sale_id is not None:
+            raise serializers.ValidationError('Billed order.')
+        elif not self.get_object().order_status_id == OrderStatusID.CREATED:
+            raise serializers.ValidationError('Order must be in CREATED state')
 
 
 class FoodOrdersViewSet(viewsets.ViewSet):
