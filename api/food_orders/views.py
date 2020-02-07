@@ -1,5 +1,6 @@
 from rest_framework import viewsets, status, generics, serializers
 from rest_framework.response import Response
+from django.forms.models import model_to_dict
 from api.serializers import ResponseFoodOrderSerializer, FoodOrderSerializer
 from api.models import FoodOrder
 from api.filters import FoodOrderFilter
@@ -19,7 +20,7 @@ class FoodOrderList(generics.ListAPIView):
     pagination_class = FiftyResultsPaginator
 
 
-class FoodUpdate(generics.UpdateAPIView):
+class FoodUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     """
     put:
     Update Food Order by ID
@@ -39,7 +40,25 @@ class FoodUpdate(generics.UpdateAPIView):
             raise serializers.ValidationError('Billed order.')
         elif not self.get_object().order_status_id == OrderStatusID.CREATED:
             raise serializers.ValidationError('Order must be in CREATED state')
-        return super(FoodUpdate, self).update(request, *args, **kwargs)
+        return super(FoodUpdateDelete, self).update(request, *args, **kwargs)
+
+    def delete(self, request, pk):
+        """
+        delete:
+        Logic Delete Food Order by ID
+        """
+        food_order = self.get_object()
+
+        if food_order.sale_id is not None:
+            raise serializers.ValidationError('Billed order.')
+        elif not food_order.order_status_id == OrderStatusID.CREATED:
+            raise serializers.ValidationError('Order must be in CREATED state')
+
+        food_order.order_status_id = OrderStatusID.DELETED
+        food_order.save()
+
+        food_order = model_to_dict(food_order)
+        return Response(food_order, status=status.HTTP_200_OK)
 
 
 class FoodOrdersViewSet(viewsets.ViewSet):
