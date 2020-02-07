@@ -20,7 +20,7 @@ class FoodOrderList(generics.ListAPIView):
     pagination_class = FiftyResultsPaginator
 
 
-class FoodUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+class FoodDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     put:
     Update Food Order by ID
@@ -40,7 +40,7 @@ class FoodUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
             raise serializers.ValidationError('Billed order.')
         elif not self.get_object().order_status_id == OrderStatusID.CREATED:
             raise serializers.ValidationError('Order must be in CREATED state')
-        return super(FoodUpdateDelete, self).update(request, *args, **kwargs)
+        return super(FoodDetail, self).update(request, *args, **kwargs)
 
     def delete(self, request, pk):
         """
