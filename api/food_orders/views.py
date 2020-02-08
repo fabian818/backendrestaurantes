@@ -1,6 +1,5 @@
 from rest_framework import viewsets, status, generics, serializers
 from rest_framework.response import Response
-from django.forms.models import model_to_dict
 from api.serializers import ResponseFoodOrderSerializer, FoodOrderSerializer
 from api.models import FoodOrder
 from api.filters import FoodOrderFilter
