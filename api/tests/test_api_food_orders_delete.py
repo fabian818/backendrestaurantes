@@ -23,8 +23,7 @@ class DeleteFoodOrderTest(TestCase):
     def test_delete_food_order(self):
         complete_path = "{}{}".format(base_list_path, self.food_order.id)
         response = client.delete(complete_path)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['order_status'], OrderStatusID.DELETED)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_delete_food_order_with_sale(self):
         complete_path = "{}{}".format(base_list_path,

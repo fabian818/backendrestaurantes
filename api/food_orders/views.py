@@ -39,17 +39,13 @@ class FoodDetail(generics.RetrieveUpdateDestroyAPIView):
         self.validate_food_order()
         return super(FoodDetail, self).update(request, *args, **kwargs)
 
-    def delete(self, request, pk):
+    def delete(self, request, *args, **kwargs):
         """
         delete:
         Logic Delete Food Order by ID
         """
-        food_order = self.get_object()
         self.validate_food_order()
-        food_order.order_status_id = OrderStatusID.DELETED
-        food_order.save()
-        food_order = model_to_dict(food_order)
-        return Response(food_order, status=status.HTTP_200_OK)
+        return super(FoodDetail, self).delete(request, *args, **kwargs)
 
     def validate_food_order(self):
         if self.get_object().sale_id is not None:

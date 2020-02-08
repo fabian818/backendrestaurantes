@@ -2,6 +2,7 @@ from django.db import models
 from api.meta_data import OrderStatusID, SaleTypeID
 from django.db.models import Max
 from django.db.models.functions import Coalesce
+from django.utils import timezone
 
 
 class DateTable(models.Model):
@@ -108,9 +109,16 @@ class FoodOrder(DateTable):
     price = models.DecimalField(max_digits=8, decimal_places=2, null=False, default=0)
     total = models.DecimalField(max_digits=8, decimal_places=2, null=False, default=0)
     quantity = models.IntegerField(null=False, default=1)
+    deleted_at = models.DateTimeField(null=True)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         self.total = self.quantity * self.price
         return super(FoodOrder, self).save(force_insert=False, force_update=False, using=None,
                                         update_fields=None)
+
+    def delete(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.deleted_at = timezone.now()
+        self.order_status_id = OrderStatusID.DELETED
+        self.save()
