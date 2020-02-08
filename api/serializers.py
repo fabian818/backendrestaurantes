@@ -36,36 +36,39 @@ class FoodTableSerializer(serializers.ModelSerializer):
             read_only=True).data
 
 
-class ResponseFoodOrderSerializer(serializers.ModelSerializer):
-    food = FoodSerializer(required=False)
-    food_id = serializers.IntegerField(allow_null=False)
-    food_table_id = serializers.IntegerField(allow_null=False)
-    food_table = FoodTableSerializer(required=False)
-    total = serializers.FloatField(required=False)
-    order_status_id = serializers.IntegerField(allow_null=False,
-                                               required=False)
-
-    class Meta:
-        model = FoodOrder
-        fields = '__all__'
-
-
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = '__all__'
 
 
-class SaleStatusSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SaleStatus
-        fields = '__all__'
-
 class SaleSerializer(serializers.ModelSerializer):
     client = ClientSerializer()
 
     class Meta:
         model = Sale
+        fields = '__all__'
+
+
+class ResponseFoodOrderSerializer(serializers.ModelSerializer):
+    food = FoodSerializer(required=False)
+    sale = SaleSerializer(required=False)
+    food_id = serializers.IntegerField(allow_null=False)
+    food_table_id = serializers.IntegerField(allow_null=False)
+    food_table = FoodTableSerializer(required=False)
+    total = serializers.FloatField(required=False)
+    order_status_id = serializers.IntegerField(allow_null=False,
+                                               required=False)
+    price = serializers.FloatField(required=False)
+
+    class Meta:
+        model = FoodOrder
+        fields = '__all__'
+
+
+class SaleStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SaleStatus
         fields = '__all__'
 
 
