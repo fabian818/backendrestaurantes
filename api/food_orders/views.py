@@ -72,7 +72,7 @@ class FoodOrdersViewSet(viewsets.ViewSet):
         for food in foods}
         for food_order in data['food_orders']:
             food_order['food_table_id'] = food_table_id
-            food_order['price'] = foods_dicts[food_order['food_id']].price
+            food_order['price'] = foods_dicts[int(food_order['food_id'])].price
             serializer = ResponseFoodOrderSerializer(data=food_order)
             serializer.is_valid(raise_exception=True)
             to_save.append(serializer)
