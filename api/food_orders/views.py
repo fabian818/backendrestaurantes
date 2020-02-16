@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status, generics, serializers
 from rest_framework.response import Response
 from api.serializers import ResponseFoodOrderSerializer, FoodOrderSerializer
-from api.models import FoodOrder
+from api.models import FoodOrder, Food
 from api.filters import FoodOrderFilter
 from api.paginators import FiftyResultsPaginator
 from api.meta_data import OrderStatusID
@@ -66,8 +66,13 @@ class FoodOrdersViewSet(viewsets.ViewSet):
             'food_orders': []
         }
         to_save = []
+        foods = Food.objects.filter(id__in=[food_order['food_id'] for food_order in data['food_orders']])
+        foods_dicts = {
+            int(food.id): food
+        for food in foods}
         for food_order in data['food_orders']:
             food_order['food_table_id'] = food_table_id
+            food_order['price'] = foods_dicts[food_order['food_id']].price
             serializer = ResponseFoodOrderSerializer(data=food_order)
             serializer.is_valid(raise_exception=True)
             to_save.append(serializer)
