@@ -11,7 +11,6 @@ food_order_valid_payload = {
     'food_table_id': None,
     'food_orders': [
         {
-            "price": 15.99,
             "quantity": 2,
             "food_id": None
         }
@@ -39,8 +38,7 @@ class PostBulkCreateFoodOrdersTest(TestCase):
         self.assertEqual(response.data['food_table_id'], self.food_table.id)
         self.assertEqual(
             response.data['food_orders'][0]['total'],
-            self.food_order_valid_payload['food_orders']
-            [0]['price'] * self.food_order_valid_payload['food_orders']
+            15.99 * self.food_order_valid_payload['food_orders']
             [0]['quantity'])
         self.assertEqual(
             response.data['food_orders'][0]['order_status_id'], OrderStatusID.CREATED)

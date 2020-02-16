@@ -3,7 +3,7 @@ from rest_framework import status
 from django.test import TestCase, Client
 from api.tests.factories.base import SaleFactory, ClientFactory
 from api.tests.factories.builders import meta_data_specific
-from api.models import Sale, Client as ClientModel
+from api.models import Sale
 
 
 client = Client()
