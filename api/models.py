@@ -74,8 +74,10 @@ class Client(DateTable):
 
 class Sale(DateTable):
     client = models.ForeignKey(Client, on_delete=models.DO_NOTHING, null=False)
-    sale_status = models.ForeignKey(SaleStatus, on_delete=models.DO_NOTHING, null=False, default=1)
-    sale_type = models.ForeignKey(SaleType, on_delete=models.DO_NOTHING, null=False, default=1)
+    sale_status = models.ForeignKey(
+        SaleStatus, on_delete=models.DO_NOTHING, null=False, default=1)
+    sale_type = models.ForeignKey(
+        SaleType, on_delete=models.DO_NOTHING, null=False, default=1)
     number = models.IntegerField(null=False, default=1)
     code = models.CharField(max_length=20, null=False)
     total = models.DecimalField(max_digits=8, decimal_places=2, null=False)
