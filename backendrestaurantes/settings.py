@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import sys
+import logging
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,6 +28,7 @@ SECRET_KEY = '_q8k^3wuaj64ysu7pc50r^*-8d=8wly-2jx3=tsxx%#rupd88k'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+DATETIME_INPUT_FORMATS = ['%Y-%m-%d %H:%M:%S']
 
 
 # Application definition
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
+    'DATETIME_INPUT_FORMATS': DATETIME_INPUT_FORMATS,
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework_filters.backends.RestFrameworkFilterBackend',
     )
@@ -138,3 +142,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/api/food_tables/static/'
+
+TESTING = sys.argv[1:2] == ['test']
+
+if TESTING is True:
+    logging.disable(logging.CRITICAL)

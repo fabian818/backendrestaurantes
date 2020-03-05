@@ -15,9 +15,14 @@ class SaleList(generics.ListCreateAPIView):
     You can filter by:
     client__identifier as follows: /api/food_tables/?client__identifier=123123123
     code as follows: /api/food_tables/?code=123123123
-    sale_status as follows: /api/food_tables/?sale_status_id=1
-    sale_types as follows: /api/food_tables/?sale_type_id=1
-    where the sale_status_id must be: 1 (paid), 2 (deleted), 3 (canceled)
+    code__in as follows: /api/food_tables/?code__in=123123123,23423423434
+    code__icontains as follows: /api/food_tables/?code__icontains=123
+    sale_status_id as follows: /api/food_tables/?sale_status_id=1
+    sale_status_id__in as follows: /api/food_tables/?sale_status_id__in=1,2,3
+    sale_type_id as follows: /api/food_tables/?sale_type_id=1
+    sale_type_id__in as follows: /api/food_tables/?sale_type_id__in=1,2,3
+    created_at as follows: /api/food_tables/?created_at__gte=2020-02-03&created_at__lte=2020-03-10
+    where the sale_status_id must be: 1 (created), 2 (paid), 3 (deleted), 4 (canceled)
     where the sale_type_id must be: 1 (boleta), 2 (factura)
     """
     queryset = Sale.objects.all()
