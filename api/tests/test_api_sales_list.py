@@ -40,9 +40,9 @@ class GetListOfSalesTest(TestCase):
         self.assertEqual(len(json_content['results']), 1)
         self.assertEqual(json_content['results'][0]['client']['identifier'], self.client_identifier)
 
-    def test_list_of_sales(self):
+    def test_list_of_sales_filter_created_at(self):
         Sale.objects.all().update(created_at=dt.now())
-        Sale.objects.filter(id__lte=10).update(created_at=dt.now() - td(days=5))
+        Sale.objects.filter(id__lte=Sale.objects.all().first().id + 9).update(created_at=dt.now() - td(days=5))
         init_date = (dt.now() - td(days=11)).strftime(STRFTIME_FORMAT)
         end_date = (dt.now() - td(days=3)).strftime(STRFTIME_FORMAT)
         response = client.get(base_list_path + '?page=1&created_at__gte=' + init_date + '&created_at__lte=' + end_date)
