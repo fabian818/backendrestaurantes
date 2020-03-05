@@ -23,14 +23,17 @@ class FoodOrderFilter(filters.FilterSet):
         model = FoodOrder
         fields = {
             'order_status_id': ['in', 'exact'],
-            'food_table_id': ['in', 'exact']
+            'food_table_id': ['in', 'exact'],
+            'created_at': ['gte', 'lte']
         }
 
 
 class ClientFilter(filters.FilterSet):
     class Meta:
         model = Client
-        fields = {'identifier': ['exact', 'in']}
+        fields = {
+            'identifier': ['exact', 'in']
+        }
 
 
 class SaleFilter(filters.FilterSet):
@@ -43,5 +46,6 @@ class SaleFilter(filters.FilterSet):
         fields = {
             'sale_status_id': ['exact', 'in'],
             'sale_type_id': ['exact', 'in'],
-            'code': ['exact', 'in'],
+            'code': ['exact', 'in', 'icontains'],
+            'created_at': ['gte', 'lte']
         }
