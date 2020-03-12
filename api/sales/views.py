@@ -6,6 +6,7 @@ from api.paginators import FiftyResultsPaginator
 from api.filters import SaleFilter
 from django.forms.models import model_to_dict
 from django.db.models import Sum
+from api.meta_data import OrderStatusID, SaleStatusID
 
 
 class SaleList(generics.ListCreateAPIView):
@@ -40,6 +41,12 @@ class SaleList(generics.ListCreateAPIView):
         serializer = CreateSaleSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        food_orders.update(sale_id=serializer.data['id'])
-
+        status_dict = {
+            SaleStatusID.CREATED: OrderStatusID.CREATED,
+            SaleStatusID.PAID: OrderStatusID.PAID
+        }
+        food_orders.update(
+            sale_id=serializer.data['id'],
+            order_status_id=status_dict.get(serializer.data['sale_status_id'])
+        )
         return Response(serializer.data, status=status.HTTP_201_CREATED)

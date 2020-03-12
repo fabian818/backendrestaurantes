@@ -5,6 +5,14 @@ class OrderStatusID:
     CANCELED = 4
     DELETED = 5
 
+
+class SaleStatusID:
+    CREATED = 1
+    PAID = 2
+    DELETED = 3
+    CANCELED = 4
+
+
 class SaleTypeID:
     BOLETA = 1
     FACTURA = 2

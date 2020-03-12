@@ -2,6 +2,7 @@ from json import dumps
 from rest_framework import status
 from django.test import TestCase, Client
 from api.tests.factories.base import FoodTableFactory, FoodFactory, FoodOrderFactory, ClientFactory
+from api.models import FoodOrder
 from api.tests.factories.builders import meta_data_specific
 from api.meta_data import OrderStatusID
 
@@ -34,7 +35,7 @@ class PostCreateSaleTest(TestCase):
                 price=10.00,
                 food_table=self.food_table,
                 food=self.food,
-                order_status_id=OrderStatusID.PAID,
+                order_status_id=OrderStatusID.CREATED,
                 sale_id=None)
             self.food_orders.append(food_order_factory.id)
 
@@ -56,3 +57,6 @@ class PostCreateSaleTest(TestCase):
                          response.data['payment'] - response.data['total'])
         self.assertEqual(response.data['sale_type_id'], 2)
         self.assertEqual(response.data['sale_status_id'], 2)
+        self.assertEqual(len(FoodOrder.objects.filter(sale_id=response.data['id'])), self.total_created_paid)
+        for food_order in FoodOrder.objects.filter(sale_id=response.data['id']):
+            self.assertEqual(food_order.order_status_id, OrderStatusID.PAID)
