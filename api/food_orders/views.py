@@ -12,6 +12,12 @@ class FoodOrderList(generics.ListAPIView):
     get:
 
     Get paginated and filtered list of food_orders
+    You can filter by:
+    fields = {
+            'order_status_id': ['in', 'exact'],
+            'food_table_id': ['in', 'exact'],
+            'created_at': ['gte', 'lte']
+        }
     """
     queryset = FoodOrder.objects.all()
     serializer_class = FoodOrderSerializer
