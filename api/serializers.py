@@ -79,8 +79,9 @@ class CreateSaleSerializer(serializers.ModelSerializer):
     change = serializers.FloatField(required=False)
     payment = serializers.FloatField(required=False)
     sale_type_id = serializers.IntegerField(allow_null=False, required=False)
+    sale_status_id = serializers.IntegerField(allow_null=False, required=False)
     total = serializers.FloatField(required=False)
-    sale_status = SaleStatusSerializer(required=False)
+    sale_status = SaleStatusSerializer(required=False, read_only=True)
 
     class Meta:
         model = Sale

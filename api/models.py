@@ -103,6 +103,9 @@ class Sale(DateTable):
                                       using=None,
                                       update_fields=None)
 
+    class Meta:
+        ordering = ['-created_at']
+
 
 class FoodOrder(DateTable):
     order_status = models.ForeignKey(OrderStatus, on_delete=models.DO_NOTHING, null=False, default=OrderStatusID.CREATED)

@@ -11,7 +11,8 @@ sale_valid_payload = {
     'food_orders': None,
     'client_id': None,
     'payment': 550.00,
-    'sale_type_id': 1
+    'sale_type_id': 2,
+    'sale_status_id': 2
 }
 
 
@@ -53,4 +54,5 @@ class PostCreateSaleTest(TestCase):
         self.assertNotEqual(response.data['payment'], None)
         self.assertEqual(response.data['change'],
                          response.data['payment'] - response.data['total'])
-        self.assertEqual(response.data['sale_type_id'], 1)
+        self.assertEqual(response.data['sale_type_id'], 2)
+        self.assertEqual(response.data['sale_status_id'], 2)
