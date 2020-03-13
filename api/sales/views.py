@@ -42,7 +42,7 @@ class SaleList(generics.ListCreateAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         status_dict = {
-            SaleStatusID.CREATED: OrderStatusID.CREATED,
+            SaleStatusID.CREATED: OrderStatusID.RELATED,
             SaleStatusID.PAID: OrderStatusID.PAID
         }
         food_orders.update(
