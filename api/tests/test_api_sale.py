@@ -26,13 +26,12 @@ class PostCreateSaleTest(TestCase):
         ])
         self.sale_valid_payload = sale_valid_payload
         self.food_table = FoodTableFactory()
-        self.food = FoodFactory()
+        self.food = FoodFactory(price=10.00)
         self.total_created_paid = 3
         self.food_orders = []
         for _ in range(self.total_created_paid):
             food_order_factory = FoodOrderFactory(
                 quantity=1,
-                price=10.00,
                 food_table=self.food_table,
                 food=self.food,
                 order_status_id=OrderStatusID.CREATED,
