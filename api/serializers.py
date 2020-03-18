@@ -31,7 +31,7 @@ class FoodTableSerializer(serializers.ModelSerializer):
     @staticmethod
     def get_food_orders(obj):
         return FoodOrderSerializer(
-            obj.food_orders.filter(order_status_id__in=[OrderStatusID.CREATED, OrderStatusID.RELATEDSaleSerializer]),
+            obj.food_orders.filter(order_status_id__in=[OrderStatusID.CREATED, OrderStatusID.RELATED]),
             many=True,
             read_only=True).data
 
