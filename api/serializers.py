@@ -31,7 +31,7 @@ class FoodTableSerializer(serializers.ModelSerializer):
     @staticmethod
     def get_food_orders(obj):
         return FoodOrderSerializer(
-            obj.food_orders.filter(order_status_id__in=[OrderStatusID.CREATED, OrderStatusID.RELATED]),
+            obj.food_orders.filter(order_status_id__in=[OrderStatusID.CREATED, OrderStatusID.RELATEDSaleSerializer]),
             many=True,
             read_only=True).data
 
@@ -44,7 +44,7 @@ class ClientSerializer(serializers.ModelSerializer):
 
 class SaleSerializer(serializers.ModelSerializer):
     client = ClientSerializer()
-
+    food_orders = FoodOrderSerializer(many=True, read_only=True)
     class Meta:
         model = Sale
         fields = '__all__'

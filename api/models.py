@@ -111,7 +111,7 @@ class FoodOrder(DateTable):
     order_status = models.ForeignKey(OrderStatus, on_delete=models.DO_NOTHING, null=False, default=OrderStatusID.CREATED)
     food = models.ForeignKey(Food, on_delete=models.DO_NOTHING, null=False)
     food_table = models.ForeignKey(FoodTable, on_delete=models.DO_NOTHING, null=False, related_name='food_orders')
-    sale = models.ForeignKey(Sale, on_delete=models.DO_NOTHING, null=True)
+    sale = models.ForeignKey(Sale, on_delete=models.DO_NOTHING, null=True, related_name='food_orders')
     price = models.DecimalField(max_digits=8, decimal_places=2, null=False, default=0)
     total = models.DecimalField(max_digits=8, decimal_places=2, null=False, default=0)
     quantity = models.IntegerField(null=False, default=1)
