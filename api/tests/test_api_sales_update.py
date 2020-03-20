@@ -28,13 +28,13 @@ class PutPatchUpdateSaleTest(TestCase):
         for _ in range(5):
             FoodOrderFactory(sale=self.sale, food_table=self.table, order_status_id=OrderStatusID.RELATED)
 
-    def test_create_sales(self):
+    def test_update_sales(self):
         response = client.patch(base_list_path.format(self.sale.id),
                                 dumps(self.sale_valid_payload),
                                 content_type="application/json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         sale = Sale.objects.get(id=self.sale.id)
-        food_orders = FoodOrder.objects.get(sale_id=self.sale.id)
+        food_orders = FoodOrder.objects.filter(sale_id=self.sale.id)
         self.assertEqual(sale.sale_status_id, SaleStatusID.PAID)
         for order in food_orders:
             self.assertEqual(order.order_status_id, OrderStatusID.PAID)

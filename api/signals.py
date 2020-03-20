@@ -12,7 +12,5 @@ def modified_food_order(sender, instance, **kwargs):
 
 @receiver(pre_save, sender=Sale, dispatch_uid='modified_sale')
 def modified_sale(sender, instance, **kwargs):
-    print("in signal")
-    print(sender)
-    print(instance)
-    print(kwargs)
+    if instance.sale_status_id == SaleStatusID.PAID:
+        FoodOrder.objects.filter(sale_id=instance.id).update(order_status_id=OrderStatusID.PAID)

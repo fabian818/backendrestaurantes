@@ -55,4 +55,6 @@ class SalesDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     patch: parcial update for sale
     """
+    queryset = Sale.objects.all()
+    serializer_class = CreateSaleSerializer
 
