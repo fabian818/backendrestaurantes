@@ -50,3 +50,9 @@ class SaleList(generics.ListCreateAPIView):
             order_status_id=status_dict.get(serializer.data['sale_status_id'])
         )
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+class SalesDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    patch: parcial update for sale
+    """
+
