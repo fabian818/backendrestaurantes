@@ -14,3 +14,4 @@ def modified_food_order(sender, instance, **kwargs):
 def modified_sale(sender, instance, **kwargs):
     if instance.sale_status_id == SaleStatusID.PAID:
         FoodOrder.objects.filter(sale_id=instance.id).update(order_status_id=OrderStatusID.PAID)
+    instance.change = instance.payment - instance.total

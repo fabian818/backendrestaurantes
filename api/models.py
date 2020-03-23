@@ -1,5 +1,5 @@
 from django.db import models
-from api.meta_data import OrderStatusID, SaleTypeID
+from api.meta_data import OrderStatusID, SaleTypeID, SaleStatusID
 from django.db.models import Max
 from django.db.models.functions import Coalesce
 from django.utils import timezone
@@ -84,6 +84,14 @@ class Sale(DateTable):
     total = models.DecimalField(max_digits=8, decimal_places=2, null=False)
     payment = models.DecimalField(max_digits=8, decimal_places=2, null=False)
     change = models.DecimalField(max_digits=8, decimal_places=2, null=False)
+    deleted_at = models.DateTimeField(null=True)
+
+    def delete(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.deleted_at = timezone.now()
+        self.sale_status_id = SaleStatusID.DELETED
+        FoodOrder.objects.filter(sale_id=self.id).update(order_status_id=OrderStatusID.CREATED)
+        self.save()
 
     def save(self,
              force_insert=False,
