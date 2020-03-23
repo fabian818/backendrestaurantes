@@ -10,7 +10,8 @@ client = Client()
 base_list_path = '/api/sales/{}/'
 
 sale_valid_payload = {
-    'sale_status_id': SaleStatusID.PAID
+    'sale_status_id': SaleStatusID.PAID,
+    'payment': 200
 }
 
 
@@ -23,7 +24,7 @@ class PutPatchUpdateSaleTest(TestCase):
             'sale_status', 'sale_type'
         ])
         self.sale_valid_payload = sale_valid_payload
-        self.sale = SaleFactory(sale_status_id=SaleStatusID.CREATED)
+        self.sale = SaleFactory(sale_status_id=SaleStatusID.CREATED, total=100.50)
         self.table = FoodTableFactory()
         for _ in range(5):
             FoodOrderFactory(sale=self.sale, food_table=self.table, order_status_id=OrderStatusID.RELATED)
@@ -37,6 +38,9 @@ class PutPatchUpdateSaleTest(TestCase):
         sale = Sale.objects.get(id=self.sale.id)
         food_orders = FoodOrder.objects.filter(sale_id=self.sale.id)
         self.assertEqual(sale.sale_status_id, SaleStatusID.PAID)
+        self.assertEqual(sale.total, 100.5)
+        self.assertEqual(sale.change, 99.5)
+        self.assertEqual(sale.payment, 200)
         for order in food_orders:
             self.assertEqual(order.order_status_id, OrderStatusID.PAID)
         self.assertEqual(self.free_order.order_status_id, OrderStatusID.CREATED)
