@@ -27,6 +27,7 @@ class PutPatchUpdateSaleTest(TestCase):
         self.table = FoodTableFactory()
         for _ in range(5):
             FoodOrderFactory(sale=self.sale, food_table=self.table, order_status_id=OrderStatusID.RELATED)
+        self.free_order = FoodOrderFactory(food_table=self.table, order_status_id=OrderStatusID.CREATED)
 
     def test_update_sales(self):
         response = client.patch(base_list_path.format(self.sale.id),
@@ -38,3 +39,4 @@ class PutPatchUpdateSaleTest(TestCase):
         self.assertEqual(sale.sale_status_id, SaleStatusID.PAID)
         for order in food_orders:
             self.assertEqual(order.order_status_id, OrderStatusID.PAID)
+        self.assertEqual(self.free_order.order_status_id, OrderStatusID.CREATED)
