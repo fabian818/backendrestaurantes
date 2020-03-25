@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import FoodTable, FoodOrder, Food, Sale, Client, SaleStatus
+from api.models import FoodTable, FoodOrder, Food, Sale, Client, SaleStatus, FoodCategory
 from api.meta_data import OrderStatusID
 
 
@@ -39,6 +39,12 @@ class FoodTableSerializer(serializers.ModelSerializer):
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
+        fields = '__all__'
+
+
+class FoodCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FoodCategory
         fields = '__all__'
 
 

@@ -1,5 +1,5 @@
 import rest_framework_filters as filters
-from api.models import FoodTable, FoodOrder, Food, Client, Sale
+from api.models import FoodTable, FoodOrder, Food, Client, Sale, FoodCategory
 
 
 class FoodTableFilter(filters.FilterSet):
@@ -48,4 +48,13 @@ class SaleFilter(filters.FilterSet):
             'sale_type_id': ['exact', 'in'],
             'code': ['exact', 'in', 'icontains'],
             'created_at': ['gte', 'lte']
+        }
+
+class FoodCategoryFilter(filters.FilterSet):
+    class Meta:
+        model = FoodCategory
+        fields = {
+            'name': ['in', 'exact', 'icontains'],
+            'display_name': ['in', 'exact', 'icontains'],
+            'description': ['in', 'exact', 'icontains'],
         }
