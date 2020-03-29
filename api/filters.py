@@ -11,7 +11,11 @@ class FoodTableFilter(filters.FilterSet):
 class FoodFilter(filters.FilterSet):
     class Meta:
         model = Food
-        fields = {'name': ['icontains']}
+        fields = {
+            'name': ['exact', 'in', 'icontains'],
+            'food_status_id': ['in', 'exact'],
+            'food_category_id': ['in', 'exact']
+        }
 
 
 class FoodOrderFilter(filters.FilterSet):
