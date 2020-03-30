@@ -1,7 +1,7 @@
 import factory
 import random
 from faker import Faker
-from api.models import Food, FoodTable, FoodOrder, Sale, Client
+from api.models import Food, FoodTable, FoodOrder, Sale, Client, FoodCategory
 
 
 fake = Faker()
@@ -25,6 +25,15 @@ class FoodTableFactory(factory.django.DjangoModelFactory):
     identifier = 'mesa x'
     display_name = factory.Faker('credit_card_provider')
     description = factory.Faker('credit_card_number')
+
+
+class FoodCategoryFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = FoodCategory
+
+    name = factory.Faker('word')
+    display_name = factory.Faker('word')
+    description = factory.Faker('words')
 
 
 class ClientFactory(factory.django.DjangoModelFactory):
