@@ -22,6 +22,7 @@ class FoodCategoriesList(generics.ListCreateAPIView):
     filter_class = FoodCategoryFilter
     pagination_class = FiftyResultsPaginator
 
+
 class FoodsList(generics.ListCreateAPIView):
     """
     get:
@@ -39,3 +40,12 @@ class FoodsList(generics.ListCreateAPIView):
     serializer_class = FoodSerializer
     filter_class = FoodFilter
     pagination_class = FiftyResultsPaginator
+
+
+class FoodCategoriesDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    patch:
+    Parcial update for food_category
+    """
+    queryset = FoodCategory.objects.all()
+    serializer_class = FoodCategorySerializer
