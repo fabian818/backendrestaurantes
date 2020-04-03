@@ -15,12 +15,12 @@ food_category_valid_payload = {
 
 
 class PutPatchUpdateFoodCategoryTest(TestCase):
-    """ Test module for PATCH/PUT update sale API """
+    """ Test module for PATCH/PUT update food_category API """
     def setUp(self):
         self.food_category_valid_payload = food_category_valid_payload
         self.food_category = FoodCategoryFactory()
 
-    def test_update_sales(self):
+    def test_update_foods(self):
         food_category_id = self.food_category.id
         response = client.patch(base_list_path.format(self.food_category.id),
                                 dumps(self.food_category_valid_payload),

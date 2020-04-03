@@ -49,3 +49,12 @@ class FoodCategoriesDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = FoodCategory.objects.all()
     serializer_class = FoodCategorySerializer
+
+
+class FoodsDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    patch:
+    Parcial update for food
+    """
+    queryset = Food.objects.all()
+    serializer_class = FoodSerializer
