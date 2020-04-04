@@ -8,7 +8,6 @@ client = Client()
 base_list_path = '/api/admin/food_categories/{}/'
 
 food_category_valid_payload = {
-    'name': 'Pollo a la brasa',
     'display_name': 'Pollo ricolino.',
     'description': 'Redbull te da alas.'
 }
@@ -27,6 +26,6 @@ class PutPatchUpdateFoodCategoryTest(TestCase):
                                 content_type="application/json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         food_category = FoodCategory.objects.get(id=food_category_id)
-        self.assertEqual(food_category.name, 'Pollo a la brasa')
+        self.assertEqual(food_category.name, 'pollo-ricolino')
         self.assertEqual(food_category.display_name, 'Pollo ricolino.')
         self.assertEqual(food_category.description, 'Redbull te da alas.')

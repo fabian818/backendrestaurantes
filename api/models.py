@@ -3,6 +3,7 @@ from api.meta_data import OrderStatusID, SaleTypeID, SaleStatusID
 from django.db.models import Max
 from django.db.models.functions import Coalesce
 from django.utils import timezone
+from slugify import slugify
 
 
 class DateTable(models.Model):
@@ -28,7 +29,9 @@ class FoodStatus(MetaDataTable):
 
 
 class FoodCategory(MetaDataTable):
-    pass
+    def save(self, *args, **kwargs):
+        self.name = slugify(self.display_name)
+        super().save(*args, **kwargs)
 
 
 class TableStatus(MetaDataTable):

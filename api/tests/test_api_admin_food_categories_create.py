@@ -6,8 +6,7 @@ from api.tests.factories.builders import meta_data_specific
 client = Client()
 base_list_path = '/api/admin/food_categories'
 food_category_valid_payload = {
-    'name': 'Tamales',
-    'display_name': 'Desayuno',
+    'display_name': 'Desayuno Continental',
     'description': 'Descripción del desayuno'
 }
 
@@ -22,7 +21,7 @@ class PostCreateFoodCategoryTest(TestCase):
                                dumps(self.food_category_valid_payload),
                                content_type="application/json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data['name'], 'Tamales')
-        self.assertEqual(response.data['display_name'], 'Desayuno')
+        self.assertEqual(response.data['name'], 'desayuno-continental')
+        self.assertEqual(response.data['display_name'], 'Desayuno Continental')
         self.assertEqual(response.data['description'],
                          'Descripción del desayuno')

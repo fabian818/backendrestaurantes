@@ -1,8 +1,10 @@
-from rest_framework import generics
+from rest_framework import status, generics
+from rest_framework.response import Response
 from api.models import FoodCategory, Food
 from api.serializers import FoodCategorySerializer, FoodSerializer
 from api.filters import FoodCategoryFilter, FoodFilter
 from api.paginators import FiftyResultsPaginator
+from slugify import slugify
 
 
 class FoodCategoriesList(generics.ListCreateAPIView):
@@ -20,6 +22,15 @@ class FoodCategoriesList(generics.ListCreateAPIView):
     serializer_class = FoodCategorySerializer
     filter_class = FoodCategoryFilter
     pagination_class = FiftyResultsPaginator
+
+    def create(self, request):
+        data = request.data
+        data['name'] = slugify(data['display_name'])
+        serializer = FoodCategorySerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 
 class FoodsList(generics.ListCreateAPIView):
