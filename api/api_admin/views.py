@@ -12,7 +12,6 @@ class FoodCategoriesList(generics.ListCreateAPIView):
     post:
     Save food category, body example:
     {
-        'name': 'Tamales',
         'display_name': 'Desayuno',
         'description': 'Descripción del desayuno'
     }
