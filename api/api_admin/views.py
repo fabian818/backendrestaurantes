@@ -1,5 +1,4 @@
-from rest_framework import status, generics
-from rest_framework.response import Response
+from rest_framework import generics
 from api.models import FoodCategory, Food
 from api.serializers import FoodCategorySerializer, FoodSerializer
 from api.filters import FoodCategoryFilter, FoodFilter
@@ -23,13 +22,6 @@ class FoodCategoriesList(generics.ListCreateAPIView):
     filter_class = FoodCategoryFilter
     pagination_class = FiftyResultsPaginator
 
-    def create(self, request):
-        data = request.data
-        data['name'] = slugify(data['display_name'])
-        serializer = FoodCategorySerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 

@@ -43,6 +43,8 @@ class ClientSerializer(serializers.ModelSerializer):
 
 
 class FoodCategorySerializer(serializers.ModelSerializer):
+    name = serializers.CharField(read_only=True)
+
     class Meta:
         model = FoodCategory
         fields = '__all__'
