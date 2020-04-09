@@ -1,5 +1,5 @@
 from django.db import models
-from api.meta_data import OrderStatusID, SaleTypeID, SaleStatusID
+from api.meta_data import OrderStatusID, SaleTypeID, SaleStatusID, FoodStatusID
 from django.db.models import Max
 from django.db.models.functions import Coalesce
 from django.utils import timezone
@@ -56,6 +56,16 @@ class Food(DateTable):
     name = models.CharField(max_length=100, null=False)
     price = models.DecimalField(max_digits=5, decimal_places=2, null=False)
     image_pic = models.ImageField(default="/static/img/ajidegallina.jpg")
+    deleted_at = models.DateTimeField(null=True)
+
+    def delete(self,
+               force_insert=False,
+               force_update=False,
+               using=None,
+               update_fields=None):
+        self.deleted_at = timezone.now()
+        self.food_status_id = FoodStatusID.DELETED
+        self.save()
 
 
 class HistoricalPrice(DateTable):
