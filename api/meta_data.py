@@ -16,3 +16,10 @@ class SaleStatusID:
 class SaleTypeID:
     BOLETA = 1
     FACTURA = 2
+
+
+class FoodStatusID:
+    ACTIVE = 1
+    INACTIVE = 2
+    INCOMING = 3
+    DELETED = 4
