@@ -1,9 +1,8 @@
 from rest_framework import generics
-from api.models import FoodCategory, Food, HistoricalPrice
-from api.serializers import FoodCategorySerializer, FoodSerializer, HistoricalPriceSerializer
+from api.models import FoodCategory, Food, HistoricalPrice, FoodTable
+from api.serializers import FoodCategorySerializer, FoodSerializer, HistoricalPriceSerializer, FoodTableSerializer
 from api.filters import FoodCategoryFilter, FoodFilter, HistoricalPriceFilter
 from api.paginators import FiftyResultsPaginator
-from slugify import slugify
 
 
 class HistoricalPricesList(generics.ListAPIView):
@@ -17,6 +16,7 @@ class HistoricalPricesList(generics.ListAPIView):
     serializer_class = HistoricalPriceSerializer
     filter_class = HistoricalPriceFilter
     pagination_class = FiftyResultsPaginator
+
 
 class FoodCategoriesList(generics.ListCreateAPIView):
     """
@@ -33,8 +33,6 @@ class FoodCategoriesList(generics.ListCreateAPIView):
     serializer_class = FoodCategorySerializer
     filter_class = FoodCategoryFilter
     pagination_class = FiftyResultsPaginator
-
-
 
 
 class FoodsList(generics.ListCreateAPIView):
@@ -72,3 +70,18 @@ class FoodsDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Food.objects.all()
     serializer_class = FoodSerializer
+
+
+class FoodTablesList(generics.ListCreateAPIView):
+    """
+    get:
+    Get food tables
+    post:
+    Save food tables, body example:
+    {
+        'display_name': 'Mesa 1',
+        'description': 'Descripción de la mesa'
+    }
+    """
+    queryset = FoodTable.objects.all()
+    serializer_class = FoodTableSerializer

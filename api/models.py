@@ -90,10 +90,17 @@ class HistoricalPrice(DateTable):
 
 
 class FoodTable(DateTable):
-    table_status = models.ForeignKey(TableStatus, on_delete=models.DO_NOTHING, null=False)
+    table_status = models.ForeignKey(TableStatus,
+                                     on_delete=models.DO_NOTHING,
+                                     null=False,
+                                     default=1)
     identifier = models.CharField(max_length=100, null=False)
     display_name = models.CharField(max_length=100, null=True)
     description = models.CharField(max_length=200, null=True)
+
+    def save(self, *args, **kwargs):
+        self.identifier = slugify(self.display_name)
+        super().save(*args, **kwargs)
 
 
 class Client(DateTable):
