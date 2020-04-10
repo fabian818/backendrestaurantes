@@ -36,5 +36,5 @@ class PutPatchUpdateFoodTest(TestCase):
         self.assertEqual(float(food.price), 20.00)
         historical_prices = HistoricalPrice.objects.all()
         self.assertEqual(historical_prices.count(), 2)
-        self.assertEqual(historical_prices.first().price, self.food.price)
-        self.assertEqual(historical_prices.last().price, food.price)
+        self.assertEqual(historical_prices.first().price, food.price)
+        self.assertEqual(historical_prices.last().price, self.food.price)

@@ -5,7 +5,7 @@ from api.tests.factories.builders import meta_data_specific
 from api.meta_data import OrderStatusID
 
 client = Client()
-base_list_path = '/api/food_tables/1'
+base_list_path = '/api/food_tables/2'
 
 
 class GetDetailFoodTableTest(TestCase):
