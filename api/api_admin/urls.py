@@ -1,5 +1,5 @@
 from django.urls import path
-from api.api_admin.views import FoodCategoriesList, FoodsList, FoodCategoriesDetail, FoodsDetail, HistoricalPricesList, FoodTablesList
+from api.api_admin.views import FoodCategoriesList, FoodsList, FoodCategoriesDetail, FoodsDetail, HistoricalPricesList, FoodTablesList, FoodTablesDetail
 
 urlpatterns = [
     path('food_categories', FoodCategoriesList.as_view()),
@@ -8,4 +8,5 @@ urlpatterns = [
     path('foods/<int:pk>/', FoodsDetail.as_view()),
     path('historical_prices', HistoricalPricesList.as_view()),
     path('food_tables', FoodTablesList.as_view()),
+    path('food_tables/<int:pk>/', FoodTablesDetail.as_view()),
 ]

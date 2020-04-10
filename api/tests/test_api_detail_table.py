@@ -5,7 +5,7 @@ from api.tests.factories.builders import meta_data_specific
 from api.meta_data import OrderStatusID
 
 client = Client()
-base_list_path = '/api/food_tables/2'
+base_list_path = '/api/food_tables/{}'
 
 
 class GetDetailFoodTableTest(TestCase):
@@ -31,7 +31,7 @@ class GetDetailFoodTableTest(TestCase):
                              sale=None)
 
     def test_food_table(self):
-        response = client.get(base_list_path)
+        response = client.get(base_list_path.format(self.food_table.id))
         data = response.data
         self.assertEqual(data['table_status'], 1)
         self.assertNotEqual(data['identifier'], None)

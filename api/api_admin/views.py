@@ -85,3 +85,12 @@ class FoodTablesList(generics.ListCreateAPIView):
     """
     queryset = FoodTable.objects.all()
     serializer_class = FoodTableSerializer
+
+
+class FoodTablesDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    patch:
+    Parcial update for food tables
+    """
+    queryset = FoodTable.objects.all()
+    serializer_class = FoodTableSerializer
