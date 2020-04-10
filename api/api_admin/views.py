@@ -1,10 +1,22 @@
 from rest_framework import generics
-from api.models import FoodCategory, Food
-from api.serializers import FoodCategorySerializer, FoodSerializer
-from api.filters import FoodCategoryFilter, FoodFilter
+from api.models import FoodCategory, Food, HistoricalPrice
+from api.serializers import FoodCategorySerializer, FoodSerializer, HistoricalPriceSerializer
+from api.filters import FoodCategoryFilter, FoodFilter, HistoricalPriceFilter
 from api.paginators import FiftyResultsPaginator
 from slugify import slugify
 
+
+class HistoricalPricesList(generics.ListAPIView):
+    """
+    get:
+    Get historical prices
+    Filter:
+    By food_id in or exact
+    """
+    queryset = HistoricalPrice.objects.all()
+    serializer_class = HistoricalPriceSerializer
+    filter_class = HistoricalPriceFilter
+    pagination_class = FiftyResultsPaginator
 
 class FoodCategoriesList(generics.ListCreateAPIView):
     """

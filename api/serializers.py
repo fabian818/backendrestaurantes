@@ -1,11 +1,16 @@
 from rest_framework import serializers
-from api.models import FoodTable, FoodOrder, Food, Sale, Client, SaleStatus, FoodCategory
+from api.models import FoodTable, FoodOrder, Food, Sale, Client, SaleStatus, FoodCategory, HistoricalPrice
 from api.meta_data import OrderStatusID
 
 
 class FoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Food
+        fields = '__all__'
+
+class HistoricalPriceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HistoricalPrice
         fields = '__all__'
 
 

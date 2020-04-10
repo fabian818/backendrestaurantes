@@ -1,7 +1,7 @@
 import factory
 import random
 from faker import Faker
-from api.models import Food, FoodTable, FoodOrder, Sale, Client, FoodCategory
+from api.models import Food, FoodTable, FoodOrder, Sale, Client, FoodCategory, HistoricalPrice
 
 
 fake = Faker()
@@ -69,3 +69,11 @@ class FoodOrderFactory(factory.django.DjangoModelFactory):
     price = random.randint(100, 200)
     total = random.randint(100, 200)
     quantity = random.randint(100, 200)
+
+
+class HistoricalPriceFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = HistoricalPrice
+
+    food = factory.SubFactory(FoodFactory)
+    price = random.randint(100, 200)

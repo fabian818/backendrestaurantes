@@ -4,6 +4,8 @@ from django.db.models import Max
 from django.db.models.functions import Coalesce
 from django.utils import timezone
 from slugify import slugify
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class DateTable(models.Model):
@@ -51,8 +53,12 @@ class SaleType(MetaDataTable):
 
 
 class Food(DateTable):
-    food_status = models.ForeignKey(FoodStatus, on_delete=models.DO_NOTHING, null=False)
-    food_category = models.ForeignKey(FoodCategory, on_delete=models.DO_NOTHING, null=False)
+    food_status = models.ForeignKey(FoodStatus,
+                                    on_delete=models.DO_NOTHING,
+                                    null=False)
+    food_category = models.ForeignKey(FoodCategory,
+                                      on_delete=models.DO_NOTHING,
+                                      null=False)
     name = models.CharField(max_length=100, null=False)
     price = models.DecimalField(max_digits=5, decimal_places=2, null=False)
     image_pic = models.ImageField(default="/static/img/ajidegallina.jpg")
@@ -68,9 +74,19 @@ class Food(DateTable):
         self.save()
 
 
+@receiver(post_save,
+        sender=Food,
+        dispatch_uid="update_historical_price")
+def update_historical_price(sender, instance, **kwargs):
+    HistoricalPrice.objects.create(price=instance.price, food_id=instance.id)
+
+
 class HistoricalPrice(DateTable):
     food = models.ForeignKey(Food, on_delete=models.DO_NOTHING, null=False)
     price = models.DecimalField(max_digits=5, decimal_places=2, null=False)
+
+    class Meta:
+        ordering = ['-created_at']
 
 
 class FoodTable(DateTable):

@@ -1,5 +1,5 @@
 import rest_framework_filters as filters
-from api.models import FoodTable, FoodOrder, Food, Client, Sale, FoodCategory
+from api.models import FoodTable, FoodOrder, Food, Client, Sale, FoodCategory, HistoricalPrice
 
 
 class FoodTableFilter(filters.FilterSet):
@@ -62,3 +62,9 @@ class FoodCategoryFilter(filters.FilterSet):
             'display_name': ['in', 'exact', 'icontains'],
             'description': ['in', 'exact', 'icontains'],
         }
+
+
+class HistoricalPriceFilter(filters.FilterSet):
+    class Meta:
+        model = HistoricalPrice
+        fields = {'food_id': ['exact', 'in']}
