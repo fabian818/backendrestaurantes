@@ -2,7 +2,7 @@ from json import dumps
 from rest_framework import status
 from django.test import TestCase, Client
 from api.tests.factories.base import FoodFactory
-from api.models import Food
+from api.models import Food, HistoricalPrice
 from api.tests.factories.builders import meta_data_specific
 
 client = Client()
@@ -34,3 +34,7 @@ class PutPatchUpdateFoodTest(TestCase):
         self.assertEqual(food.food_category_id, 2)
         self.assertEqual(food.name, 'Comida de casa')
         self.assertEqual(float(food.price), 20.00)
+        historical_prices = HistoricalPrice.objects.all()
+        self.assertEqual(historical_prices.count(), 2)
+        self.assertEqual(historical_prices.first().price, self.food.price)
+        self.assertEqual(historical_prices.last().price, food.price)

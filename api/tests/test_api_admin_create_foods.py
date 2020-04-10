@@ -1,6 +1,7 @@
 from json import dumps
 from rest_framework import status
 from django.test import TestCase, Client
+from api.models import HistoricalPrice
 from api.tests.factories.builders import meta_data_specific
 
 client = Client()
@@ -27,3 +28,6 @@ class PostCreateFoodTest(TestCase):
         self.assertEqual(float(response.data['price']), 10.00)
         self.assertEqual(response.data['food_status'], 1)
         self.assertEqual(response.data['food_category'], 1)
+        historical_prices = HistoricalPrice.objects.all()
+        self.assertEqual(historical_prices.count(), 1)
+        self.assertEqual(historical_prices.first().price, 10.00)
