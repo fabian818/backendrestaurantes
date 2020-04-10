@@ -85,6 +85,9 @@ class HistoricalPrice(DateTable):
     food = models.ForeignKey(Food, on_delete=models.DO_NOTHING, null=False)
     price = models.DecimalField(max_digits=5, decimal_places=2, null=False)
 
+    class Meta:
+        ordering = ['-created_at']
+
 
 class FoodTable(DateTable):
     table_status = models.ForeignKey(TableStatus, on_delete=models.DO_NOTHING, null=False)
