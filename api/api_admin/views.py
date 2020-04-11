@@ -84,6 +84,11 @@ class FoodTablesList(generics.ListCreateAPIView):
         'display_name': 'Mesa 1',
         'description': 'Descripción de la mesa'
     }
+    Filter by:
+    table_status_id__in 1, 2, 3
+    display_name__in
+    display_name__exact
+    display_name__icontains
     """
     queryset = FoodTable.objects.all()
     serializer_class = FoodTableSerializer

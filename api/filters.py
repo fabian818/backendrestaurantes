@@ -5,7 +5,10 @@ from api.models import FoodTable, FoodOrder, Food, Client, Sale, FoodCategory, H
 class FoodTableFilter(filters.FilterSet):
     class Meta:
         model = FoodTable
-        fields = {'table_status_id': ['in']}
+        fields = {
+            'table_status_id': ['in'],
+            'display_name': ['in', 'exact', 'icontains']
+        }
 
 
 class FoodFilter(filters.FilterSet):
