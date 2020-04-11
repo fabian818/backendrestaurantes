@@ -38,5 +38,5 @@ class GetDetailFoodTableTest(TestCase):
         self.assertNotEqual(data['display_name'], None)
         self.assertNotEqual(data['description'], None)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(data), 8)
+        self.assertEqual(len(data), 9)
         self.assertEqual(len(data['food_orders']), 1)

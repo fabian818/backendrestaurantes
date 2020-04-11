@@ -1,8 +1,10 @@
-from rest_framework import generics
-from api.models import FoodCategory, Food, HistoricalPrice, FoodTable
+from rest_framework import generics, status
+from rest_framework.response import Response
+from api.models import FoodCategory, Food, HistoricalPrice, FoodTable, FoodOrder
 from api.serializers import FoodCategorySerializer, FoodSerializer, HistoricalPriceSerializer, FoodTableSerializer
 from api.filters import FoodCategoryFilter, FoodFilter, HistoricalPriceFilter
 from api.paginators import FiftyResultsPaginator
+from api.meta_data import OrderStatusID
 
 
 class HistoricalPricesList(generics.ListAPIView):
@@ -94,3 +96,24 @@ class FoodTablesDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = FoodTable.objects.all()
     serializer_class = FoodTableSerializer
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Method for soft delete a Food Table
+        """
+        if self.validate_food_table():
+            return super(FoodTablesDetail,
+                         self).delete(request, *args, **kwargs)
+        else:
+            return Response(
+                data={"message": "Food Table has orders created o relateds!"},
+                status=status.HTTP_400_BAD_REQUEST)
+
+
+    def validate_food_table(self):
+        food_table_id = self.get_object().id
+        created_orders = FoodOrder.objects.filter(
+            food_table_id=food_table_id, order_status=OrderStatusID.CREATED)
+        related_orders = FoodOrder.objects.filter(
+            food_table_id=food_table_id, order_status=OrderStatusID.RELATED)
+        return created_orders.count() == 0 and related_orders.count() == 0
