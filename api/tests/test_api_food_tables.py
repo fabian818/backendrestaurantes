@@ -6,6 +6,7 @@ from api.meta_data import OrderStatusID
 
 client = Client()
 base_list_path = '/api/food_tables/'
+admin_base_list_path = '/api/food_tables/'
 
 
 class GetListOfFoodTablesTest(TestCase):
@@ -38,6 +39,20 @@ class GetListOfFoodTablesTest(TestCase):
 
     def test_filter_of_food_tables(self):
         filter_path = base_list_path + '?table_status_id__in=1,2'
+        response = client.get(filter_path)
+        data = response.data
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(data), 2)
+        self.assertEqual(data[0]['table_status'], 1)
+
+    def test_admin_list_of_food_tables(self):
+        response = client.get(admin_base_list_path)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 3)
+        self.assertEqual(len(response.data[0]['food_orders']), 5)
+
+    def test_admin_filter_of_food_tables(self):
+        filter_path = admin_base_list_path + '?table_status_id__in=1,2'
         response = client.get(filter_path)
         data = response.data
         self.assertEqual(response.status_code, status.HTTP_200_OK)
