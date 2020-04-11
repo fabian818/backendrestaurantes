@@ -1,5 +1,5 @@
 from django.db import models
-from api.meta_data import OrderStatusID, SaleTypeID, SaleStatusID, FoodStatusID
+from api.meta_data import OrderStatusID, SaleTypeID, SaleStatusID, FoodStatusID, TableStatusID
 from django.db.models import Max
 from django.db.models.functions import Coalesce
 from django.utils import timezone
@@ -90,11 +90,24 @@ class HistoricalPrice(DateTable):
 
 
 class FoodTable(DateTable):
-    table_status = models.ForeignKey(TableStatus, on_delete=models.DO_NOTHING, null=False)
+    table_status = models.ForeignKey(TableStatus,
+                                     on_delete=models.DO_NOTHING,
+                                     null=False,
+                                     default=1)
     identifier = models.CharField(max_length=100, null=False)
     display_name = models.CharField(max_length=100, null=True)
     description = models.CharField(max_length=200, null=True)
+    deleted_at = models.DateTimeField(null=True)
 
+    def save(self, *args, **kwargs):
+        self.identifier = slugify(self.display_name)
+        super().save(*args, **kwargs)
+
+    def delete(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.deleted_at = timezone.now()
+        self.table_status_id = TableStatusID.DELETED
+        self.save()
 
 class Client(DateTable):
     identifier = models.CharField(max_length=10, null=False)

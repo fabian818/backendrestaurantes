@@ -23,3 +23,9 @@ class FoodStatusID:
     INACTIVE = 2
     INCOMING = 3
     DELETED = 4
+
+
+class TableStatusID:
+    READY = 1
+    OCCUPIED = 2
+    DELETED = 3

@@ -1,9 +1,10 @@
-from rest_framework import generics
-from api.models import FoodCategory, Food, HistoricalPrice
-from api.serializers import FoodCategorySerializer, FoodSerializer, HistoricalPriceSerializer
-from api.filters import FoodCategoryFilter, FoodFilter, HistoricalPriceFilter
+from rest_framework import generics, status
+from rest_framework.response import Response
+from api.models import FoodCategory, Food, HistoricalPrice, FoodTable, FoodOrder
+from api.serializers import FoodCategorySerializer, FoodSerializer, HistoricalPriceSerializer, FoodTableSerializer
+from api.filters import FoodCategoryFilter, FoodFilter, HistoricalPriceFilter, FoodTableFilter
 from api.paginators import FiftyResultsPaginator
-from slugify import slugify
+from api.meta_data import OrderStatusID
 
 
 class HistoricalPricesList(generics.ListAPIView):
@@ -17,6 +18,7 @@ class HistoricalPricesList(generics.ListAPIView):
     serializer_class = HistoricalPriceSerializer
     filter_class = HistoricalPriceFilter
     pagination_class = FiftyResultsPaginator
+
 
 class FoodCategoriesList(generics.ListCreateAPIView):
     """
@@ -33,8 +35,6 @@ class FoodCategoriesList(generics.ListCreateAPIView):
     serializer_class = FoodCategorySerializer
     filter_class = FoodCategoryFilter
     pagination_class = FiftyResultsPaginator
-
-
 
 
 class FoodsList(generics.ListCreateAPIView):
@@ -72,3 +72,50 @@ class FoodsDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Food.objects.all()
     serializer_class = FoodSerializer
+
+
+class FoodTablesList(generics.ListCreateAPIView):
+    """
+    get:
+    Get food tables
+    post:
+    Save food tables, body example:
+    {
+        'display_name': 'Mesa 1',
+        'description': 'Descripción de la mesa'
+    }
+    """
+    queryset = FoodTable.objects.all()
+    serializer_class = FoodTableSerializer
+    filter_class = FoodTableFilter
+    pagination_class = FiftyResultsPaginator
+
+
+class FoodTablesDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    patch:
+    Parcial update for food tables
+    """
+    queryset = FoodTable.objects.all()
+    serializer_class = FoodTableSerializer
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Method for soft delete a Food Table
+        """
+        if self.validate_food_table():
+            return super(FoodTablesDetail,
+                         self).delete(request, *args, **kwargs)
+        else:
+            return Response(
+                data={"message": "Food Table has orders created o relateds!"},
+                status=status.HTTP_400_BAD_REQUEST)
+
+
+    def validate_food_table(self):
+        food_table_id = self.get_object().id
+        created_orders = FoodOrder.objects.filter(
+            food_table_id=food_table_id, order_status=OrderStatusID.CREATED)
+        related_orders = FoodOrder.objects.filter(
+            food_table_id=food_table_id, order_status=OrderStatusID.RELATED)
+        return created_orders.count() == 0 and related_orders.count() == 0

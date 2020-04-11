@@ -25,6 +25,7 @@ class FoodOrderSerializer(serializers.ModelSerializer):
 
 
 class FoodTableSerializer(serializers.ModelSerializer):
+    identifier = serializers.CharField(read_only=True)
     food_orders = serializers.SerializerMethodField(source='food_orders',
                                                     read_only=True)
 
