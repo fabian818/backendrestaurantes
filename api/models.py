@@ -109,6 +109,10 @@ class FoodTable(DateTable):
         self.table_status_id = TableStatusID.DELETED
         self.save()
 
+    # class Meta:
+    #     ordering = ['-created_at']
+
+
 class Client(DateTable):
     identifier = models.CharField(max_length=10, null=False)
     name = models.CharField(max_length=100, null=True)

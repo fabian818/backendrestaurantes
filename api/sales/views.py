@@ -2,7 +2,7 @@ from rest_framework import status, generics
 from rest_framework.response import Response
 from api.models import Sale, FoodOrder, SaleType
 from api.serializers import SaleSerializer, CreateSaleSerializer
-from api.paginators import FiftyResultsPaginator
+from api.paginators import TwentyResultsPaginator
 from api.filters import SaleFilter
 from django.forms.models import model_to_dict
 from django.db.models import Sum
@@ -28,7 +28,7 @@ class SaleList(generics.ListCreateAPIView):
     """
     queryset = Sale.objects.all()
     serializer_class = SaleSerializer
-    pagination_class = FiftyResultsPaginator
+    pagination_class = TwentyResultsPaginator
     filter_class = SaleFilter
 
     def create(self, request):

@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from api.models import FoodCategory, Food, HistoricalPrice, FoodTable, FoodOrder
 from api.serializers import FoodCategorySerializer, FoodSerializer, HistoricalPriceSerializer, FoodTableSerializer
 from api.filters import FoodCategoryFilter, FoodFilter, HistoricalPriceFilter, FoodTableFilter
-from api.paginators import FiftyResultsPaginator
+from api.paginators import TwentyResultsPaginator
 from api.meta_data import OrderStatusID
 
 
@@ -17,7 +17,7 @@ class HistoricalPricesList(generics.ListAPIView):
     queryset = HistoricalPrice.objects.all()
     serializer_class = HistoricalPriceSerializer
     filter_class = HistoricalPriceFilter
-    pagination_class = FiftyResultsPaginator
+    pagination_class = TwentyResultsPaginator
 
 
 class FoodCategoriesList(generics.ListCreateAPIView):
@@ -34,7 +34,7 @@ class FoodCategoriesList(generics.ListCreateAPIView):
     queryset = FoodCategory.objects.all()
     serializer_class = FoodCategorySerializer
     filter_class = FoodCategoryFilter
-    pagination_class = FiftyResultsPaginator
+    pagination_class = TwentyResultsPaginator
 
 
 class FoodsList(generics.ListCreateAPIView):
@@ -53,7 +53,7 @@ class FoodsList(generics.ListCreateAPIView):
     queryset = Food.objects.all()
     serializer_class = FoodSerializer
     filter_class = FoodFilter
-    pagination_class = FiftyResultsPaginator
+    pagination_class = TwentyResultsPaginator
 
 
 class FoodCategoriesDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -93,7 +93,7 @@ class FoodTablesList(generics.ListCreateAPIView):
     queryset = FoodTable.objects.all()
     serializer_class = FoodTableSerializer
     filter_class = FoodTableFilter
-    pagination_class = FiftyResultsPaginator
+    pagination_class = TwentyResultsPaginator
 
 
 class FoodTablesDetail(generics.RetrieveUpdateDestroyAPIView):

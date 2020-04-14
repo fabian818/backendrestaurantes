@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from api.serializers import ResponseFoodOrderSerializer, FoodOrderSerializer
 from api.models import FoodOrder, Food
 from api.filters import FoodOrderFilter
-from api.paginators import FiftyResultsPaginator
+from api.paginators import TwentyResultsPaginator
 from api.meta_data import OrderStatusID
 
 
@@ -22,7 +22,7 @@ class FoodOrderList(generics.ListAPIView):
     queryset = FoodOrder.objects.all()
     serializer_class = FoodOrderSerializer
     filter_class = FoodOrderFilter
-    pagination_class = FiftyResultsPaginator
+    pagination_class = TwentyResultsPaginator
 
 
 class FoodDetail(generics.RetrieveUpdateDestroyAPIView):

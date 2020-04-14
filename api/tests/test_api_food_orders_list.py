@@ -27,7 +27,7 @@ class GetListOfFoodTablesTest(TestCase):
         response = client.get(base_list_path + '?page=1')
         json_content = json.loads(response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(json_content['results']), 50)
+        self.assertEqual(len(json_content['results']), 20)
 
     def test_filter_of_food_tables(self):
         filter_path = base_list_path + '?page=1&food__name__icontains=ají de gallina'
