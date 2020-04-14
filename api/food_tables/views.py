@@ -1,6 +1,7 @@
 from rest_framework import generics
 from api.models import FoodTable
 from api.serializers import FoodTableSerializer
+from api.paginators import TwentyResultsPaginator
 from api.filters import FoodTableFilter
 
 
@@ -14,6 +15,7 @@ class FoodTableList(generics.ListAPIView):
     queryset = FoodTable.objects.all()
     serializer_class = FoodTableSerializer
     filter_class = FoodTableFilter
+    pagination_class = TwentyResultsPaginator
 
 
 class FoodTableDetail(generics.RetrieveAPIView):
