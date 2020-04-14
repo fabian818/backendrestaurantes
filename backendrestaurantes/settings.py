@@ -52,9 +52,12 @@ REST_FRAMEWORK = {
     'DATETIME_INPUT_FORMATS': DATETIME_INPUT_FORMATS,
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework_filters.backends.RestFrameworkFilterBackend',
-    )
+    ),
+    'PAGE_SIZE': 20,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination'
 }
 
+PAGE_SIZE = 20
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

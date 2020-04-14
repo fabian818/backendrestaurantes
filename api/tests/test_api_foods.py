@@ -10,7 +10,7 @@ client = Client()
 base_list_path = '/api/foods/'
 
 
-class GetListOfSalesTest(TestCase):
+class GetListOfFoodsTest(TestCase):
     """ Test module for GET list of sales API """
     def setUp(self):
         meta_data_specific(
@@ -21,6 +21,6 @@ class GetListOfSalesTest(TestCase):
 
     def test_list_of_sales(self):
         response = client.get(base_list_path)
-        json_content = json.loads(response.content)
+        json_content = json.loads(response.content)['results']
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(json_content), 51)
+        self.assertEqual(len(json_content), 20)

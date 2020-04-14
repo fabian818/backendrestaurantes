@@ -1,3 +1,4 @@
+from json import loads
 import random
 from rest_framework import status
 from django.test import TestCase, Client
@@ -17,16 +18,18 @@ class GetListClientsTest(TestCase):
 
     def test_list_of_clients(self):
         response = call_client.get(base_list_path)
-        data = response.data
+        print(loads(response.content))
+        data = loads(response.content)['results']
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(data), 10)
 
     def test_filter_of_identifier(self):
         response = call_client.get(base_list_path)
-        identifier = response.data[0]['identifier']
+        data = loads(response.content)['results']
+        identifier = data[0]['identifier']
         filter_path = base_list_path + '?identifier=' + identifier
         response = call_client.get(filter_path)
-        data = response.data
+        data = loads(response.content)['results']
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(data), 1)
         self.assertEqual(data[0]['identifier'], identifier)
