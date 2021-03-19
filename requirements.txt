@@ -12,7 +12,7 @@ django-filters==0.2.1
 django-haystack==2.8.1
 django-seed==0.2.2
 django-sphinxdoc==2.0.0
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 djangorestframework-filters==1.0.0.dev0
 docutils==0.16
 drf-yasg==1.17.0
