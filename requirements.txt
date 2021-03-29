@@ -33,7 +33,7 @@ packaging==20.0
 pdoc3==0.7.2
 Pillow==7.0.0
 psycopg2==2.8.4
-Pygments==2.5.2
+Pygments==2.7.4
 pylint==2.4.4
 pyparsing==2.4.6
 pysolr==3.8.1
